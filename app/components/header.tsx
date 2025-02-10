@@ -49,7 +49,7 @@ export default function Header() {
           <Link href="/" passHref>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img
-                src="/logo.png"
+                src="../../public/Logo.png"
                 alt="Logo Valka"
                 width={120}
                 height={120}

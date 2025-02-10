@@ -1,0 +1,68 @@
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 12px;
+  width: 180px;
+  transition: 0.3s;
+}
+
+.timer-container:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+.timer-display {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 2px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.timer-button {
+  background: #444;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.timer-button:hover {
+  transform: scale(1.1);
+}
+
+.start {
+  background: #00c853;
+}
+
+.stop {
+  background: #d50000;
+}
+
+.reset {
+  background: #ffab00;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

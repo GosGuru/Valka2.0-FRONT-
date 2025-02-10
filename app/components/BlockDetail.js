@@ -2,103 +2,100 @@ import React, { useState, useEffect } from "react";
 import { getEjercicios } from "../api/getEjercicios";
 import { getEjercicioConVideo } from "../api/getEjerciciosVideo";
 import { ENV } from "../utils";
-import { Reorder, FitnessCenter, Timer, ArrowBack } from "@mui/icons-material";
+import {
+  Reorder,
+  FitnessCenter,
+  Timer as TimerIcon,
+  ArrowBack,
+} from "@mui/icons-material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import "../styles/blockDetail.css";
-// import "../scss/Video/videoStyle.scss";
 import CustomVideoPlayer from "./CustomVideoPlayer";
 import { useRouter } from "next/navigation";
-import { Router } from "lucide-react";
+import {
+  saveToLocalStorage,
+  loadFromLocalStorage,
+} from "../utils/localStorageHelper";
+import Timer from "./Timer"; // Importamos el cronómetro
 
 const BlockDetail = ({ block, onBack }) => {
   const [exercises, setExercises] = useState([]);
-  const [exerciseVideos, setExerciseVideos] = useState({}); // Mapea id -> { url, mime }
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const router = useRouter();
+  const [exerciseVideos, setExerciseVideos] = useState({});
+  const [completedSeries, setCompletedSeries] = useState({});
 
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        setLoading(true);
-
-        // Obtener los ejercicios asociados al bloque
         const fetchedExercises = await getEjercicios(block.id);
         setExercises(fetchedExercises);
 
-        // Obtener los videos de cada ejercicio
         const videoPromises = fetchedExercises.map((exercise) =>
           getEjercicioConVideo(exercise.id)
         );
         const videos = await Promise.all(videoPromises);
 
-        console.log("Videos recibidos:", videos);
-
-        // Mapear los videos por ID de ejercicio
         const videosMap = videos.reduce((acc, video) => {
           acc[String(video.id)] = {
-            url:
-              video.videoURL?.url && video.videoURL.url.startsWith("http")
-                ? video.videoURL.url
-                : null,
-            mime: video.videoURL?.mime || "video/mp4", // Usar el mime si existe, o "video/mp4" por defecto
+            url: video.videoURL?.url || null,
+            mime: video.videoURL?.mime || "video/mp4",
           };
           return acc;
         }, {});
-
         setExerciseVideos(videosMap);
-      } catch (err) {
-        setError(err.message || "Ocurrió un error desconocido.");
-      } finally {
-        setLoading(false);
+
+        // Cargar progreso de series desde localStorage
+        const storedProgress = loadFromLocalStorage("completedSeries");
+        if (storedProgress) {
+          setCompletedSeries(storedProgress);
+        }
+      } catch (error) {
+        console.error("Error al cargar ejercicios:", error);
       }
     };
 
-    if (block.id) {
-      fetchExercises();
-    } else {
-      setLoading(false);
-    }
+    fetchExercises();
   }, [block.id]);
 
-  const handleBack = () => {
-    window.location.reload();
+  // Función para resetear el día
+  const resetearDia = () => {
+    localStorage.removeItem("completedSeries");
+    setCompletedSeries({});
+    alert("Progreso del día reiniciado.");
   };
 
-  const getDifficultyClass = (dificultad) => {
-    switch (dificultad) {
-      case "Avanzado":
-        return "difficulty-advanced";
-      case "Intermedio":
-        return "difficulty-intermediate";
-      case "Principiante":
-      default:
-        return "difficulty-beginner";
-    }
+  // Función para completar una serie
+  const handleCompleteSeries = (exerciseId) => {
+    setCompletedSeries((prev) => {
+      const updatedSeries = {
+        ...prev,
+        [exerciseId]: (prev[exerciseId] || 0) + 1,
+      };
+      saveToLocalStorage("completedSeries", updatedSeries);
+      return updatedSeries;
+    });
   };
-
-  if (loading) return <p className="text-center text-gray-400">Cargando...</p>;
-  if (error)
-    return (
-      <div className="text-center text-red-500">
-        <p>Error: {error}</p>
-        <button onClick={onBack} className="text-blue-500 underline">
-          Volver
-        </button>
-      </div>
-    );
 
   return (
     <div className="block-detail">
-      <button className="sticky top-2" onClick={handleBack}>
-        <ArrowBack className="text-blue-600 hover:bg-slate-600  backdrop-opacity-50 p-1 rounded-full" />
+      {/* Botón para volver */}
+      <button className="sticky top-1 right-1" onClick={onBack}>
+        <ArrowBack className="text-blue-600 hover:bg-slate-600 backdrop-opacity-50 p-1 rounded-full" />
       </button>
+
+      {/* Botón para resetear el día */}
+      <button
+        className="absolute top-2 right-1 bg-green-800 text-white px-2 py-1 rounded-md ml-1"
+        onClick={resetearDia}
+      >
+        Resetear Series
+      </button>
+
       <h2 className="block-title">{block.titulo || "Bloque sin nombre"}</h2>
       <p className="block-notes">{block.notes || "Sin notas"}</p>
+
       {exercises.length > 0 ? (
         <ul className="exercise-list">
           {exercises.map((exercise) => {
-            // Convertimos el id a string para el mapping
             const videoData = exerciseVideos[String(exercise.id)];
             return (
               <div key={exercise.id} className="exercise-item">
@@ -106,7 +103,7 @@ const BlockDetail = ({ block, onBack }) => {
                   {videoData?.url ? (
                     <CustomVideoPlayer
                       src={videoData.url}
-                      type={videoData.mime || "video/mp4"}
+                      type={videoData.mime}
                     />
                   ) : (
                     <p>No hay video disponible para este ejercicio.</p>
@@ -116,33 +113,28 @@ const BlockDetail = ({ block, onBack }) => {
                   <span className="exercise-reps">
                     {exercise.repeticiones || "N/A"} reps
                   </span>
-                  <span
-                    className={`exercise-difficulty ${getDifficultyClass(
-                      exercise.dificultad
-                    )}`}
-                  >
-                    {exercise.dificultad || "Principiante"}
-                  </span>
                   <p className="exercise-name">
                     {exercise.nombre || "Ejercicio sin nombre"}
                   </p>
                   <div className="container__series--carga">
+                    {/* Cronómetro */}
+                    <div className="timer-wrapper">
+                      <Timer />
+                    </div>
                     <span className="exercise-series">
-                      <Reorder style={{ marginRight: "5px" }} />
+                      {completedSeries[exercise.id] || 0}/
                       {exercise.series || "N/A"}
                     </span>
-                    <span className="exercise-carga">
-                      <FitnessCenter style={{ marginRight: "5px" }} />
-                      {exercise.carga || "N/A"}
-                    </span>
-                    <span className="exercise-descanso">
-                      <Timer style={{ marginRight: "5px" }} />
-                      {exercise.descanso || "N/A"} s
-                    </span>
-                    <span className="exercise-blockTime">
-                      <AccessTimeIcon style={{ marginRight: "5px" }} />
-                      {exercise.tiempoBloque || "N/A"} s
-                    </span>
+
+                    <button
+                      className="complete-series-button"
+                      onClick={() => handleCompleteSeries(exercise.id)}
+                      disabled={
+                        (completedSeries[exercise.id] || 0) >= exercise.series
+                      }
+                    >
+                      Completar
+                    </button>
                   </div>
                 </div>
               </div>

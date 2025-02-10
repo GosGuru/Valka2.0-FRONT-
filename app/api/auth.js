@@ -1,6 +1,7 @@
 import axios from "axios";
+import { ENV } from "../utils";
 
-const BASE_URL = "http://localhost:1337";
+const BASE_URL = ENV.API_BASE_URL;
 
 export const registerUser = async (data) => {
   const url = `${BASE_URL}/api/auth/local/register`;

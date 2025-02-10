@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import "../scss/Video/videoStyle.scss"; // Aquí irán los estilos personalizados
+import "../scss/Video/videoStyle.scss";
 import MinimalPlayPauseButton from "../../components/ui/minimal-play-pause-button";
 
 const CustomVideoPlayer = ({ src, type }) => {
@@ -23,18 +23,20 @@ const CustomVideoPlayer = ({ src, type }) => {
     <div className="video-container" onClick={togglePlayPause}>
       <video
         ref={videoRef}
-        src={src}
-        type={type}
         preload="metadata"
         autoPlay
         muted
         loop
         playsInline
         className="video-player"
-      />
+      >
+        <source src={src} type={type} />
+        {/* Mensaje alternativo para navegadores que no soportan video */}
+        Tu navegador no soporta la reproducción de este video.
+      </video>
       {/* Capa degradada para mejorar la legibilidad */}
       <div className="video-overlay" />
-      {/* Usamos el nuevo botón minimalista */}
+      {/* Controles minimalistas */}
       <div className="video-controls">
         <MinimalPlayPauseButton
           isPlaying={isPlaying}

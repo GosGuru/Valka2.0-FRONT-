@@ -22,23 +22,31 @@ const BlockDetail = ({ block, onBack }) => {
       try {
         setLoading(true);
 
-        // Obtener los ejercicios asociados al bloque (usando el ID de la rutina)
+        // Obtener los ejercicios asociados al bloque
         const fetchedExercises = await getEjercicios(block.id);
         setExercises(fetchedExercises);
 
-        // Para cada ejercicio obtenemos su video (si tiene)
+        // Obtener los videos de cada ejercicio
         const videoPromises = fetchedExercises.map((exercise) =>
           getEjercicioConVideo(exercise.id)
         );
         const videos = await Promise.all(videoPromises);
 
-        // Mapear los videos por el ID del ejercicio (convirtiendo el id a string)
+        console.log("Videos recibidos:", videos);
+
+        // Mapear los videos por ID de ejercicio
         const videosMap = videos.reduce((acc, video) => {
-          acc[String(video.id)] = video.videoURL;
+          acc[String(video.id)] = {
+            url:
+              video.videoURL?.url && video.videoURL.url.startsWith("http")
+                ? video.videoURL.url
+                : null,
+            mime: video.videoURL?.mime || "video/mp4", // Usar el mime si existe, o "video/mp4" por defecto
+          };
           return acc;
         }, {});
+
         setExerciseVideos(videosMap);
-        console.log("Mapping de videos:", videosMap);
       } catch (err) {
         setError(err.message || "Ocurrió un error desconocido.");
       } finally {

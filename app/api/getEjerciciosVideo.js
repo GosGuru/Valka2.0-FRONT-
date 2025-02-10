@@ -24,30 +24,23 @@ export const getEjercicioConVideo = async (exerciseId) => {
     const data = await response.json();
     console.log("Datos del ejercicio con video:", data);
 
-    // Dependiendo de la respuesta, data.data puede venir con o sin wrapper "attributes"
-    const ejercicio =
-      data?.data?.attributes !== undefined ? data.data.attributes : data.data;
+    // Extraer el ejercicio desde la respuesta
+    const ejercicio = data.data;
 
+    // Verificar si el ejercicio tiene videoURL
     let videoAttributes = null;
     if (ejercicio.videoURL) {
-      // Si la relación viene anidada en un objeto "data"
-      if (ejercicio.videoURL.data) {
-        videoAttributes = ejercicio.videoURL.data.attributes;
-      } else {
-        // Si viene directamente
-        videoAttributes = ejercicio.videoURL;
-      }
+      videoAttributes = ejercicio.videoURL;
     }
+
     console.log("videoAttributes:", videoAttributes);
 
     return {
       // Usamos el exerciseId original para que coincida con la lista
       id: exerciseId,
       videoURL: {
-        url: videoAttributes
-          ? `${ENV.API_BASE_URL}${videoAttributes.url}`
-          : null,
-        mime: videoAttributes ? videoAttributes.mime : "video/mp4",
+        url: videoAttributes?.url || null, // Si no hay videoURL, asignar null
+        mime: videoAttributes?.mime || "video/mp4", // Usar el mime si existe, o "video/mp4" por defecto
       },
     };
   } catch (error) {

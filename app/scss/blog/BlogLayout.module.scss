@@ -1,0 +1,225 @@
+/* Layout principal */
+.blogLayout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  position: relative;
+}
+
+/* Fondo oscuro para móviles */
+.sidebarBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10; // Por encima del contenido principal
+}
+
+/* Ícono de menú para móviles */
+.menuIcon {
+  position: fixed;
+  top: 0.5rem;
+  z-index: 20; // Por encima del fondo oscuro
+  background-color: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  padding: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  height: fit-content;
+
+  &:hover {
+    transform: scale(1.1); // Efecto hover sutil
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0; // Inicialmente oculto
+  height: 100%;
+  z-index: -1;
+  background-color: #1a1a1a;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease-in-out;
+  z-index: 20; // Por encima del fondo oscuro
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar abierto */
+.sidebarOpen {
+  width: 100%; // Ocupa toda la pantalla en móviles
+  @media (min-width: 768px) {
+    width: 18rem; // Ancho fijo en escritorio
+  }
+}
+
+/* Sidebar cerrado */
+.sidebarClosed {
+  width: 0;
+  @media (min-width: 768px) {
+    width: 5rem; // Ancho reducido en escritorio
+  }
+}
+
+/* Botón para colapsar el sidebar */
+.sidebarToggle {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  align-self: flex-start;
+  background-color: #f3f4f6;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Lista del sidebar */
+.sidebarList {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Estilos de los botones del sidebar */
+.sidebarListItemButton {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.title__Blog{
+  font-size: 50px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.ka__blok{
+  color:#f94510;
+}
+
+.listItemButtonOpen {
+  justify-content: flex-start;
+}
+
+.listItemButtonClosed {
+  justify-content: center;
+}
+
+/* Contenedor del contenido principal */
+.blogContent {
+  flex-grow: 1;
+  transition: all 0.3s ease-in-out;
+  margin: 35px auto;
+  background-color: #f9f8f8;
+  // box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  //   0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  color: #333;
+  padding: 0px 0;
+}
+
+/* Modificadores para el contenido principal según el estado del sidebar */
+.contentOpen {
+  margin-left: 0; // Sin margen en móviles
+  @media (min-width: 768px) {
+    margin-left: 18rem; // Margen en escritorio
+  }
+}
+
+.contentClosed {
+  margin-left: 0; // Sin margen en móviles
+  @media (min-width: 768px) {
+    margin-left: 5rem; // Margen reducido en escritorio
+  }
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px; // mx-auto (centrado horizontal)
+  margin: 0 auto; // Centrado horizontal
+  padding: 1rem; // px-4
+}
+
+/* Grid de blogs */
+.blogs__container {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr)); // 1 columna por defecto
+  gap: 0.9rem; // Espaciado entre elementos
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    ); // 2 columnas en pantallas medianas
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(
+      3,
+      minmax(0, 1fr)
+    ); // 3 columnas en pantallas grandes
+  }
+}
+
+/* Estilos de las tarjetas */
+.blogs__cards {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05); // shadow-lg
+  border-radius: 0.5rem; // rounded-lg
+  overflow: hidden; // overflow-hidden
+  transition: transform 150ms ease-out; // Efecto hover suave
+
+  &:hover {
+    transform: scale(1.01); // Escala al pasar el mouse
+  }
+}
+
+/* Imagen destacada */
+.cardMedia {
+  width: 100%; // w-full
+  height: 12rem; // h-48 (12rem = 192px)
+  object-fit: cover; // object-cover
+}
+
+/* Contenido del post */
+.cardContent {
+  // padding: 1rem; // p-4
+}
+
+/* Título del post */
+.title {
+  font-size: 1.25rem; // text-xl (1.25rem = 20px)
+  font-weight: bold; // font-semibold
+  color: #1f2937; // text-gray-800
+  transition: color 0.3s ease-in-out; // transition-colors
+
+  &:hover {
+    color: #f97316; // hover:text-orange-600
+  }
+}
+
+/* Descripción corta */
+.shortDescription {
+  color: #6b7280; // text-gray-600
+  margin-top: 0.5rem; // mt-2
+}
+
+// /* Botón "Leer más" */
+// .readMoreButton {
+//   display: inline-block;
+//   margin-top: 1rem; // mt-4
+//   padding: 0.5rem 1rem; // Espaciado interno
+//   background-color: #3b82f6; // primary color
+//   color: #ffffff; // text-white
+//   font-size: 0.875rem; // Tamaño de fuente
+//   border-radius: 0.375rem; // Bordes redondeados
+//   text-decoration: none; // Quitar subrayado
+//   transition: background-color 0.3s ease-in-out;
+
+//   &:hover {
+//     background-color: #f67842; // Hover effect
+//   }
+// }

@@ -1,0 +1,68 @@
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Título */
+.title {
+  font-size: 1.875rem; // text-3xl (1.875rem = 30px)
+  font-weight: bold; // font-bold
+  text-align: center; // text-center
+  margin-bottom: 1.5rem; // mb-6 (1.5rem = 24px)
+}
+
+/* Imagen destacada */
+.featuredImageContainer {
+  position: relative;
+  width: 100%; // w-full
+  height: 24rem; // h-96 (24rem = 384px)
+  overflow: hidden; // overflow-hidden
+  border-radius: 0.5rem; // rounded-lg
+  margin-bottom: 1.5rem; // mb-6
+}
+
+.featuredImage {
+  width: 100%; // w-full
+  height: 100%; // h-full
+  object-fit: cover; // object-cover
+  border-radius: 0.5rem; // rounded-lg
+}
+
+/* Descripción corta */
+.shortDescription {
+  color: #6b7280; // text-gray-600
+  margin-bottom: 1.5rem; // mb-6
+}
+
+/* Contenido Rich Text */
+.richText {
+  font-size: 1rem; // Prose base font size
+  line-height: 1.75; // Prose line height
+  color: #374151; // Prose text color
+
+  @media (min-width: 1024px) {
+    font-size: 1.25rem; // lg:prose-xl (1.25rem = 20px)
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #111827; // Prose heading color
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: #3b82f6; // Prose link color
+    text-decoration: underline;
+  }
+}

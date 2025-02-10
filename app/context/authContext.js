@@ -1,8 +1,5 @@
 "use client";
-
-import { useState, useEffect, createContext, useContext } from "react";
-import { loginUser, getMe } from "../api/auth";
-import { ENV } from "../utils";
+import { createContext, useState, useEffect, useContext } from "react";
 
 export const AuthContext = createContext();
 
@@ -11,20 +8,22 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Verificar el token almacenado en localStorage al cargar la aplicación
   useEffect(() => {
-    const token = localStorage.getItem(ENV.TOKEN);
-    if (token) {
-      validateToken(token);
+    const storedToken = localStorage.getItem("authToken");
+    if (storedToken) {
+      validateToken(storedToken);
     } else {
       setLoading(false);
     }
   }, []);
 
+  // Validar el token con la API
   const validateToken = async (token) => {
     try {
-      const userData = await getMe(token);
+      // Aquí puedes agregar una llamada a tu API para validar el token
       setToken(token);
-      setUser(userData);
+      setUser({ username: "Usuario" }); // Simula datos del usuario
     } catch {
       logout();
     } finally {
@@ -32,23 +31,21 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const login = async (email, password) => {
-    try {
-      const { jwt } = await loginUser({ identifier: email, password });
-      localStorage.setItem(ENV.TOKEN, jwt);
-      validateToken(jwt);
-    } catch (error) {
-      throw new Error("Credenciales incorrectas");
-    }
+  // Función para iniciar sesión
+  const login = (newToken, userData) => {
+    localStorage.setItem("authToken", newToken);
+    setToken(newToken);
+    setUser(userData);
   };
 
+  // Función para cerrar sesión
   const logout = () => {
-    localStorage.removeItem(ENV.TOKEN);
+    localStorage.removeItem("authToken");
     setToken(null);
     setUser(null);
   };
 
-  const data = {
+  const value = {
     user,
     token,
     login,
@@ -56,10 +53,47 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={data}>
-      {!loading ? children : <div>Loading...</div>}
+    <AuthContext.Provider value={value}>
+      {!loading ? (
+        children
+      ) : (
+        <div className="flex items-center justify-center min-h-screen bg-[#1a1a1a] text-white">
+          <div className="text-center">
+            {/* Icono (puedes usar un ícono personalizado o uno de Material-UI) */}
+            <svg
+              className="animate-spin h-12 w-12 mx-auto mb-4 text-[#f94510]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+
+            {/* Texto sutil debajo del icono */}
+            <p className="text-gray-400 text-sm">Cargando...</p>
+          </div>
+        </div>
+      )}
     </AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

@@ -1,0 +1,19 @@
+:root {
+  /* Colores para el Light Mode */
+  --background-color: #F2F2F2;
+  --text-color: #333333;
+  --primary-color: #F94510;
+  --secondary-color: #FFFFFF;
+  --border-color: #BDBDBD;
+  --button-hover-bg: #FF7043;
+}
+
+.dark-mode {
+  /* Colores para el Dark Mode */
+  --background-color: #1A1A1A;
+  --text-color: #E0E0E0;
+  --primary-color: #F94510;
+  --secondary-color: #CCCCCC;
+  --border-color: #333333;
+  --button-hover-bg: #F94510;
+}

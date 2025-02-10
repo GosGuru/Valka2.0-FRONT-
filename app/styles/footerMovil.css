@@ -1,42 +1,88 @@
 .footer {
+  display: none;
+}
+
+@media screen and (max-width: 468px) {
+  .footer {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
+    width: 95%;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 0;
-    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
+    border-radius: 45px;
+    background-color: #fff;
+    padding: 8px 10px;
+    background: #fff8f838;
+    backdrop-filter: blur(3.9px);
+    border: none;
+    box-shadow: 0 -3px 10px #3d383745;
+    z-index: 1000;
   }
-  
+
+  /* Botones del footer */
   .footer-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
-    text-align: center;
-    padding: 5px;
-    cursor: pointer;
+    color: rgba(0, 0, 0, 0.8); /* Texto claro */
+    font-family: "Inter", sans-serif;
+    font-size: 12px; /* Texto reducido */
+    font-weight: 500;
+    transition: transform 0.25s ease, color 0.25s ease;
   }
-  
+
+  .footer-button:hover {
+    transform: scale(1.05); /* Escala ligera */
+    color: #e25e32; /* Color de énfasis */
+  }
+
+  .footer-button:active {
+    transform: scale(0.9); /* Efecto al presionar */
+  }
+
+  /* Iconos */
   .footer-icon {
-    font-size: 30px;
-    color: #333;
+    font-size: 20px !important; /* Tamaño reducido */
+    margin-bottom: 2px; /* Menor separación del texto */
+    color: inherit; /* Hereda el color del botón */
   }
-  
-  .footer-button span {
-    font-size: 12px;
-    color: #333;
-    margin-top: 5px;
+
+  /* Responsividad específica */
+  @media (max-width: 480px) {
+    .footer {
+      padding: 6px 8px; /* Espaciado más compacto */
+    }
+
+    .footer-button {
+      font-size: 12px; /* Texto aún más pequeño */
+      min-width: 50px; /* Reducir el ancho mínimo */
+    }
+
+    .footer-icon {
+      font-size: 18px; /* Iconos más pequeños */
+    }
   }
-  
-  .footer-button:hover .footer-icon {
-    color: #007bff; /* Cambia el color al pasar el cursor */
+
+  /* Animación suave */
+  .footer {
+    animation: fadeInUp 0.4s ease;
   }
-  
-  .footer-button:hover span {
-    color: #007bff;
+
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
-  
+}

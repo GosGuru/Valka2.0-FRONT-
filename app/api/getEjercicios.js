@@ -1,22 +1,54 @@
 import { ENV } from "../utils";
-
-export const getEjercicios = async (blockId) => {
+export const getEjercicios = async (rutinaId) => {
   try {
-    const url = `${ENV.API_BASE_URL}/api/rutinas/${blockId}?populate=*`;
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer 44933b6346e71a6c3d6795edac96c26f50856013f16167d0ab177c0c9725c0a5148981d6615128baa5d8fb89269f1c27abce6641cd993ccae5eb2f34498cff75c28948427e0d70275a34032ae14066958d68c9c5481e169422fe41f9514661269478157928fd76b5b9985d6488c2908ebdf6f9bdf7c312cb600708499b220f4b`,
-      },
-    });
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      console.log("Falta el token de autenticación");
+    }
+
+    const response = await fetch(
+      `${ENV.API_BASE_URL}/api/rutinas/?populate=ejercicios`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
-      throw new Error("Error al obtener los ejercicios.");
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
 
     const data = await response.json();
-    return data.data.ejercicios || [];
+    console.log("Datos recibidos de la API:", data);
+
+    // Extraemos todas las rutinas
+    const rutinas = data?.data || [];
+    if (!Array.isArray(rutinas) || rutinas.length === 0) {
+      console.warn("No se encontraron rutinas en la respuesta de la API.");
+      return [];
+    }
+
+    // Filtramos la rutina por su ID
+    const rutinaEncontrada = rutinas.find((rutina) => rutina.id === rutinaId);
+    if (!rutinaEncontrada) {
+      console.warn(`No se encontró la rutina con ID ${rutinaId}.`);
+      return [];
+    }
+
+    // Extraemos los ejercicios de la rutina encontrada
+    const ejercicios = rutinaEncontrada.ejercicios || [];
+    if (ejercicios.length === 0) {
+      console.warn("No se encontraron ejercicios en la rutina.");
+      return [];
+    }
+
+    return ejercicios.map((item) => ({
+      id: item.id,
+      ...item,
+    }));
   } catch (error) {
     console.error("Error en getEjercicios:", error);
-    throw error;
+    throw new Error("Error al obtener los ejercicios.");
   }
 };

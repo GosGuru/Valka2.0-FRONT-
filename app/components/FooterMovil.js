@@ -2,14 +2,15 @@
 
 import React from "react";
 import { useRouter } from "next/navigation"; // Importar useRouter para la navegación
-import { Home, Search, AccountCircle, Settings } from "@mui/icons-material"; // Iconos de Material-UI
+import { Home, CalendarToday, Search, Person } from "@mui/icons-material"; // Iconos de Material-UI
 import "../styles/footerMovil.css";
+import Link from "next/link";
 
 const FooterMovil = () => {
   const router = useRouter();
 
   const handleBack = () => {
-    router.back(); 
+    router.back();
   };
 
   return (
@@ -18,18 +19,23 @@ const FooterMovil = () => {
         <Home className="footer-icon" />
         <span>Volver</span>
       </button>
+      <Link href={"../routines"}>
       <button className="footer-button">
-        <Search className="footer-icon" />
+        <CalendarToday className="footer-icon" />{" "}
+        {/* Icono de calendario para Rutinas */}
+        <span>Rutinas</span>
+      </button>
+      </Link>
+      <button className="footer-button">
+        <Search className="footer-icon" /> {/* Icono de búsqueda para Buscar */}
         <span>Buscar</span>
       </button>
-      <button className="footer-button">
-        <AccountCircle className="footer-icon" />
-        <span>Perfil</span>
-      </button>
-      <button className="footer-button">
-        <Settings className="footer-icon" />
-        <span>Ajustes</span>
-      </button>
+      <Link href={"../profile"}>
+        <button className="footer-button">
+          <Person className="footer-icon" /> {/* Icono de perfil para Perfil */}
+          <span>Perfil</span>
+        </button>
+      </Link>
     </div>
   );
 };

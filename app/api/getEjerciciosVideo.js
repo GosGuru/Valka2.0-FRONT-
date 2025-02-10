@@ -1,20 +1,55 @@
-// src/api/getEjercicioConVideo.js
+import { ENV } from "../utils";
+
 export const getEjercicioConVideo = async (exerciseId) => {
   try {
-    const url = `http://localhost:1337/api/ejercicios/${exerciseId}?populate=videoURL`; // Asegura que se incluye 'videoURL'
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      console.log("Falta el token de autenticación");
+    }
 
+    console.log("ID DE VIDEO:", exerciseId);
+
+    // Solicitamos el ejercicio individual con populate para el campo videoURL
+    const url = `${ENV.API_BASE_URL}/api/ejercicios/${exerciseId}?populate=videoURL`;
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer 44933b6346e71a6c3d6795edac96c26f50856013f16167d0ab177c0c9725c0a5148981d6615128baa5d8fb89269f1c27abce6641cd993ccae5eb2f34498cff75c28948427e0d70275a34032ae14066958d68c9c5481e169422fe41f9514661269478157928fd76b5b9985d6488c2908ebdf6f9bdf7c312cb600708499b220f4b`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     if (!response.ok) {
-      throw new Error("Error al obtener el ejercicio con video.");
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
 
     const data = await response.json();
-    return data.data || {}; // Devuelve el ejercicio o un objeto vacío
+    console.log("Datos del ejercicio con video:", data);
+
+    // Dependiendo de la respuesta, data.data puede venir con o sin wrapper "attributes"
+    const ejercicio =
+      data?.data?.attributes !== undefined ? data.data.attributes : data.data;
+
+    let videoAttributes = null;
+    if (ejercicio.videoURL) {
+      // Si la relación viene anidada en un objeto "data"
+      if (ejercicio.videoURL.data) {
+        videoAttributes = ejercicio.videoURL.data.attributes;
+      } else {
+        // Si viene directamente
+        videoAttributes = ejercicio.videoURL;
+      }
+    }
+    console.log("videoAttributes:", videoAttributes);
+
+    return {
+      // Usamos el exerciseId original para que coincida con la lista
+      id: exerciseId,
+      videoURL: {
+        url: videoAttributes
+          ? `${ENV.API_BASE_URL}${videoAttributes.url}`
+          : null,
+        mime: videoAttributes ? videoAttributes.mime : "video/mp4",
+      },
+    };
   } catch (error) {
     console.error("Error en getEjercicioConVideo:", error);
     throw error;

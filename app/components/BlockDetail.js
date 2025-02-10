@@ -76,76 +76,99 @@ const BlockDetail = ({ block, onBack }) => {
   };
 
   return (
-    <div className="block-detail">
+    <div className="block-detail p-4 bg-gray-900 text-white min-h-screen">
       {/* Botón para volver */}
-      <button className="sticky top-1 right-1" onClick={onBack}>
-        <ArrowBack className="text-blue-600 hover:bg-slate-600 backdrop-opacity-50 p-1 rounded-full" />
+      <button
+        className="absolute top-2 left-2 p-2 rounded-full bg-gray-700 hover:bg-gray-600"
+        onClick={onBack}
+      >
+        <ArrowBack className="text-white" />
       </button>
 
       {/* Botón para resetear el día */}
       <button
-        className="absolute top-2 right-1 bg-green-800 text-white px-2 py-1 rounded-md ml-1"
+        className="absolute top-2 right-2 bg-green-600 text-white px-3 py-1 rounded-md hover:bg-green-500"
         onClick={resetearDia}
       >
         Resetear Series
       </button>
 
-      <h2 className="block-title">{block.titulo || "Bloque sin nombre"}</h2>
-      <p className="block-notes">{block.notes || "Sin notas"}</p>
+      <h2 className="text-2xl font-bold text-center mt-10">
+        {block.titulo || "Bloque sin nombre"}
+      </h2>
+      <p className="text-gray-400 text-center mb-4">
+        {block.notes || "Sin notas"}
+      </p>
 
       {exercises.length > 0 ? (
-        <ul className="exercise-list">
+        <ul className="space-y-6">
           {exercises.map((exercise) => {
             const videoData = exerciseVideos[String(exercise.id)];
             return (
-              <div key={exercise.id} className="exercise-item">
-                <div className="exercise-video">
+              <div
+                key={exercise.id}
+                className="exercise-item bg-gray-800 p-4 rounded-lg shadow-md"
+              >
+                <h3 className="text-xl font-semibold text-center">
+                  {exercise.nombre || "Ejercicio sin nombre"}
+                </h3>
+                <p className="text-gray-400 text-sm text-left text-center">
+                  Dificultad: {exercise.dificultad || "Desconocida"}
+                </p>
+
+                <div className="mt-3 flex flex-col items-center">
                   {videoData?.url ? (
                     <CustomVideoPlayer
                       src={videoData.url}
                       type={videoData.mime}
+                      className="rounded-lg overflow-hidden"
                     />
                   ) : (
-                    <p>No hay video disponible para este ejercicio.</p>
+                    <p className="text-gray-500">No hay video disponible.</p>
                   )}
                 </div>
-                <div className="exercise-details">
-                  <span className="exercise-reps">
-                    {exercise.repeticiones || "N/A"} reps
-                  </span>
-                  <p className="exercise-name">
-                    {exercise.nombre || "Ejercicio sin nombre"}
-                  </p>
-                  <div className="container__series--carga">
-                    {/* Cronómetro */}
-                    <div className="timer-wrapper">
-                      <Timer />
-                    </div>
-                    <span className="exercise-series">
-                      {completedSeries[exercise.id] || 0}/
-                      {exercise.series || "N/A"}
-                    </span>
 
-                    <button
-                      className="complete-series-button"
-                      onClick={() => handleCompleteSeries(exercise.id)}
-                      disabled={
-                        (completedSeries[exercise.id] || 0) >= exercise.series
-                      }
-                    >
-                      Completar
-                    </button>
-                  </div>
+                <div className="mt-4 grid grid-cols-2   gap-2 text-center">
+                  <span className="bg-gray-700  text-left p-2 rounded">
+                    Reps: {exercise.repeticiones || "N/A"}
+                  </span>
+                  <span className="bg-gray-700 text-left p-2 rounded">
+                    Carga: {exercise.carga || "N/A"}
+                  </span>
+                  <span className="bg-gray-700 text-left p-2 rounded">
+                    Descanso: {exercise.descanso || "N/A"}
+                  </span>
+                  <span className="bg-gray-700 text-left p-2 rounded">
+                    Series: {exercise.series || "N/A"}
+                  </span>
+                </div>
+
+                <div className="mt-4 flex flex-col items-center">
+                  <Timer />
+                  <span className="mt-2 text-sm text-gray-400">
+                    Series Completadas: {completedSeries[exercise.id] || 0}/
+                    {exercise.series || "N/A"}
+                  </span>
+                  <button
+                    className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md disabled:bg-gray-500"
+                    onClick={() => handleCompleteSeries(exercise.id)}
+                    disabled={
+                      (completedSeries[exercise.id] || 0) >= exercise.series
+                    }
+                  >
+                    Completar Serie
+                  </button>
                 </div>
               </div>
             );
           })}
         </ul>
       ) : (
-        <p className="no-exercises-text">Este bloque no tiene ejercicios.</p>
+        <p className="text-center text-gray-500">
+          Este bloque no tiene ejercicios.
+        </p>
       )}
     </div>
   );
 };
-
 export default BlockDetail;

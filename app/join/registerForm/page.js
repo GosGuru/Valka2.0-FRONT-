@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/authContext"; // Usa el contexto de autenticación
+import { ENV } from "@/app/utils";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:1337/api/auth/local/register",
+        `${ENV.API_BASE_URL}/api/auth/local/register`,
         {
           method: "POST",
           headers: {
@@ -106,10 +107,7 @@ export default function Register() {
         </button>
         <p className="mt-4 text-center text-gray-400">
           ¿Ya tienes una cuenta?{" "}
-          <a
-            href="/join/loginForm"
-            className="text-[#f94510] hover:underline"
-          >
+          <a href="/join/loginForm" className="text-[#f94510] hover:underline">
             Inicia Sesión
           </a>
         </p>

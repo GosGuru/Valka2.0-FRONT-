@@ -49,15 +49,17 @@ export default function Header() {
           <Link href="/" passHref>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img
-                src="../../public/Logo.png"
+                src="./logo.png"
                 alt="Logo Valka"
                 width={120}
                 height={120}
                 loading="lazy"
               />
+              
             </div>
+          
           </Link>
-
+          
           {/* Navegación para pantallas grandes */}
           <Box
             sx={{
@@ -98,9 +100,7 @@ export default function Header() {
                   color: "#f94510",
                   "&:hover": { color: "#ffffff", backgroundColor: "#f94510" },
                 }}
-              >
-          
-              </Button>
+              ></Button>
               {/* Link con avatar al perfil del usuario */}
               <Link href="/profile" passHref>
                 <Avatar

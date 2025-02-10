@@ -5,9 +5,13 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"; // Ícono de flecha hacia atrás
+import { ENV } from "@/app/utils";
 
 export default async function BlogPostPage({ params }) {
-  const { slug } = params;
+  // Acceder a params.slug directamente
+  const slug = params.slug;
+
+  // Obtener el post usando el slug
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -34,7 +38,7 @@ export default async function BlogPostPage({ params }) {
       {postData.featuredImage && (
         <div className="relative w-full h-96 overflow-hidden rounded-lg mb-6">
           <img
-            src={`http://localhost:1337${postData.featuredImage.url}`}
+            src={`${ENV.API_BASE_URL}${postData.featuredImage.url}`}
             alt={postData.Titulo}
             className="w-full h-full object-cover rounded-lg"
           />
@@ -59,14 +63,15 @@ export default async function BlogPostPage({ params }) {
 // Genera parámetros estáticos para Next.js
 export async function generateStaticParams() {
   const posts = await getAllPosts();
+
   if (!posts || posts.length === 0) {
     return [];
   }
+
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
-
 // Función auxiliar para renderizar el contenido Rich Text en Markdown
 function renderRichText(blocks) {
   if (!blocks || blocks.length === 0) return "";

@@ -6,6 +6,8 @@ import Footer from "./components/FooterMovil"; // Ajusta la ruta según tu estru
 import { AuthProvider } from "./context/authContext";
 import { robotoSlab } from "./ui/fonts";
 import { Exo2 } from "./ui/fonts";
+import { Toaster } from "@/components/ui/sonner";
+
 export const metadata: Metadata = {
   title: "Valka",
   description:
@@ -28,6 +30,7 @@ export default function RootLayout({
         <AuthProvider>
           <Header />
           <main className="min-h-screen">{children}</main>
+          <Toaster />
           <Footer />
         </AuthProvider>
       </body>

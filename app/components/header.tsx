@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../context/authContext"; // Usa el contexto de autenticación
 import { ModeToggle } from "./mode-toggle";
 import { robotoSlab } from "../ui/fonts";
-import "../scss/Header/Header.scss";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,12 +35,11 @@ export default function Header() {
   return (
     <AppBar
       position="static"
-      className="hearder"
       sx={{
         backgroundColor: "#1a1a1a",
         boxShadow: 3,
         width: "100%",
-        height: "60px",
+        height: "100%",
         fontFamily: robotoSlab.style.fontFamily,
       }}
     >
@@ -138,7 +136,9 @@ export default function Header() {
                   fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
                   "&:hover": { color: "#ffffff", backgroundColor: "#f94510" },
                 }}
-              ></Button>
+              >
+             
+              </Button>
               {/* Link con avatar al perfil del usuario */}
               <Link href="/profile" passHref>
                 <Avatar

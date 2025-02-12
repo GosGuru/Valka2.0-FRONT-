@@ -46,7 +46,7 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 .container__list {
   display: flex;
-  justify-content: center;
+  justify-content: stretch;
   align-items: flex-start;
 }
 .block-item {

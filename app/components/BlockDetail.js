@@ -30,6 +30,7 @@ import { getEjercicios } from "../api/getEjercicios";
 import { getEjercicioConVideo } from "../api/getEjerciciosVideo";
 import "../scss/Block/BlockDetail.scss"; // Importa el archivo SCSS
 import { Exo2 } from "../ui/fonts";
+import { toast } from "sonner";
 
 const BlockDetail = ({ block, onBack }) => {
   const [exercises, setExercises] = useState([]);
@@ -68,7 +69,7 @@ const BlockDetail = ({ block, onBack }) => {
   const resetearDia = () => {
     localStorage.removeItem("completedSeries");
     setCompletedSeries({});
-    alert("Progreso del día reiniciado.");
+    toast("Las series han sido reseteadas.");
   };
 
   const handleCompleteSeries = (exerciseId) => {
@@ -180,12 +181,9 @@ const BlockDetail = ({ block, onBack }) => {
 
                           {/* Botón "Next" que aparece cuando se completan las series */}
                           {isCompleted && (
-                            <button
-                              onClick={handleNextExercise}
-                              className="next-button"
-                            >
-                              Next
-                            </button>
+                            <div className="ContenedorNext">
+                              <CarouselNext className="container__next" />
+                            </div>
                           )}
                         </div>
                       </div>

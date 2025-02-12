@@ -16,6 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/authContext"; // Usa el contexto de autenticación
 import { ModeToggle } from "./mode-toggle";
+import { Exo2 } from "../ui/fonts";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,6 +35,7 @@ export default function Header() {
   return (
     <AppBar
       position="static"
+
       sx={{ backgroundColor: "#1a1a1a", boxShadow: 3, width: "100%" }}
     >
       <Container maxWidth="xl">
@@ -49,17 +51,15 @@ export default function Header() {
           <Link href="/" passHref>
             <div style={{ display: "flex", alignItems: "center" }}>
               <img
-                src="./logo.png"
+                src="/logo.png"
                 alt="Logo Valka"
                 width={120}
                 height={120}
                 loading="lazy"
               />
-              
             </div>
-          
           </Link>
-          
+
           {/* Navegación para pantallas grandes */}
           <Box
             sx={{
@@ -74,7 +74,7 @@ export default function Header() {
                 Sobre Nosotros
               </Button>
             </Link>
-            <Link href="/routines" passHref>
+            <Link href="../pages/routines" passHref>
               <Button sx={{ color: "white", "&:hover": { color: "#f94510" } }}>
                 Rutinas
               </Button>
@@ -85,7 +85,9 @@ export default function Header() {
               </Button>
             </Link>
             <Link href="/blog" passHref>
-              <Button sx={{ color: "white", "&:hover": { color: "#f94510" } }}>
+              <Button 
+                
+              sx={{ color: "white", "&:hover": { color: "#f94510" } }}>
                 Blog
               </Button>
             </Link>
@@ -172,7 +174,7 @@ export default function Header() {
               Sobre Nosotros
             </Button>
           </Link>
-          <Link href="/routines" passHref>
+          <Link href="../pages/routines" passHref>
             <Button
               fullWidth
               sx={{ color: "white", "&:hover": { color: "#f94510" } }}

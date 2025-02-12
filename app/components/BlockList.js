@@ -1,20 +1,27 @@
 import React from "react";
-import "../styles/blockList.css";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import "../scss/Block/blockList.scss";
 
 const BlockList = ({ blocks, onSelectBlock }) => {
   console.log("Datos de las rutinas:", blocks);
+
   return (
     <div className="block-list">
       {blocks.map((block) => (
-        <div
+        <Card
           key={block.id}
           className="block-item"
           onClick={() => onSelectBlock(block.id)}
         >
-          
-          <h4 className="block-title">{block.titulo || "Bloque Sin Nombre"}</h4>
-          <p className="block-notes">{block.notes || "Sin notas"}</p>
-        </div>
+          <CardHeader>
+            <CardTitle className="block-title">
+              {block.titulo || "Bloque Sin Nombre"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="block-notes">{block.notes || "Sin notas"}</p>
+          </CardContent>
+        </Card>
       ))}
     </div>
   );

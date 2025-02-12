@@ -1,0 +1,84 @@
+// Título Principal: "Calisteniapp" en Naranja Vibrante  .
+
+$titulo: #e6741e;
+$titulos: #ff6f61;
+// Subtítulo: "Tu Guía Completa de Calistenia" en Azul Cielo (#87CEEB)
+$subtitulo: #87ceeb;
+// Texto Descriptivo: "Realiza 3 sets de 10 repeticiones" en Blanco Suave (#E0E0E0) .
+$descriptivo: #e0e0e0;
+// Datos Numéricos: "Sets: 4 | Reps: 10" en Rosa Neón (#FF1493) .
+$numeros: #ff1493;
+// Botón de Acción: "¡Empieza Ahora!" en Verde Limón (#CCFF00) .
+$button: #ccff00;
+
+body {
+  background-color: #333 !important;
+  color: #f5f5f5 !important;
+}
+
+.container{
+  padding-bottom: 60px;
+}
+
+.container__details {
+  padding: 25px 0;
+  position: relative;
+  align-items: stretch;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 100%;
+  margin-bottom: 45px;
+
+  .container__title {
+    font-size: 1.8rem;
+    color: $titulo;
+    font-weight: 900;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    margin-bottom: 15px;
+  }
+
+  .container__goRutina {
+    color: $button;
+  }
+
+  .back-button {
+    color: $button;
+    border: none;
+    background-color: #181818;
+  }
+
+  .container__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.ejercicio__container {
+  padding-inline: 15px;
+  font-weight: 300;
+  font-size: 19px;
+}
+
+.ejercicio__nombre {
+  color: $titulos;
+  padding-inline: 15px;
+}
+
+.ejercicio__series--series {
+  color: $numeros;
+
+  padding-inline: 15px;
+}
+
+.ejercicio__tiempo {
+  color: $subtitulo;
+}
+
+.ejercicio__reps {
+  color: $descriptivo;
+}

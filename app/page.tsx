@@ -16,7 +16,7 @@ export default function Home() {
           vida a través del ejercicio.
         </p>
 
-        <Link href="/routines/">
+        <Link href="./pages/routines/">
           <button className="mt-8 px-6 py-3 bg-[#f94510] text-white rounded-lg font-semibold hover:bg-[#f73e00] transition-colors duration-300 relative z-10">
             Explorar Ejercicios
           </button>

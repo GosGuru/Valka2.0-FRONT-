@@ -1,0 +1,273 @@
+/* Variables globales */
+$primary-color: #f8450d;
+$secondary-color: #d0cccc;
+$text-color: #ffffff;
+$hover-color: #ff6f61;
+$disabled-color: #555555;
+
+/* Estilos generales */
+.block-detail {
+  padding: 1rem;
+  background-color: #1a1a1a; // Fondo oscuro
+  color: $text-color;
+  min-height: 100vh;
+  position: relative;
+  /* Botón de regreso */
+  .back-button {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 9999px; // Bordes redondeados completos
+    background-color: #333333;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #444444;
+    }
+
+    svg {
+      color: $text-color;
+    }
+  }
+
+  /* Botón de resetear series */
+  .reset-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: $primary-color;
+    color: $text-color;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: lighten($primary-color, 10%);
+    }
+  }
+
+  /* Título principal */
+  h2 {
+    font-size: 1.9rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2.9rem;
+    margin-bottom: 1rem;
+    font-family: --font-Exo_2;
+  }
+
+  /* Notas del bloque */
+  p {
+    text-align: center;
+    color: $secondary-color;
+    margin-bottom: 1.5rem;
+  }
+
+  p.navigation-tip {
+    color: #ff57575e;
+    font-weight: bold;
+    font-family: --font-Exo_2;
+    margin-bottom: -36px;
+    font-size: 22px;
+  }
+
+  /* Contenedor del carrusel */
+  .carousel-container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    position: relative !important;
+
+    /* Carrusel */
+    .carousel-container {
+      position: relative !important;
+      max-width: 800px;
+      margin: 0 auto; // Centra el carrusel
+
+      /* Contenedor de flechas */
+      .container__arrow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute !important;
+        top: 50% !important; // Centra verticalmente
+        width: 100% !important;
+        transform: translateY(-50%);
+        pointer-events: none; // Evita que el contenedor interfiera con clics
+
+        /* Flechas */
+        .carousel-previous,
+        .carousel-next {
+          pointer-events: auto; // Habilita clics en las flechas
+          background-color: rgba(0, 0, 0, 0.6); // Fondo semi-transparente
+          color: #ffffff; // Color del ícono
+          border-radius: 9999px; // Bordes redondeados completos
+          padding: 0.75rem;
+          cursor: pointer;
+          transition: background-color 0.2s ease-in-out;
+
+          &:hover {
+            background-color: rgba(
+              0,
+              0,
+              0,
+              0.8
+            ); // Cambio de fondo al pasar el mouse
+          }
+
+          svg {
+            width: 1.5rem !important;
+            height: 1.5rem !important;
+          }
+        }
+      }
+    }
+  }
+  /* Elemento del carrusel */
+  .exercise-item {
+    background-color: #2a2a2a; // Fondo más claro para los ejercicios
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    /* Título del ejercicio */
+    h3 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Dificultad */
+    .difficulty {
+      font-size: 0.875rem;
+      color: $secondary-color;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Video */
+    .video-container {
+
+
+      video {
+        width: 100%;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+
+      p {
+        color: $secondary-color;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+    }
+
+    /* Detalles del ejercicio (reps, carga, etc.) */
+    .exercise-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-top: 1rem;
+
+      span {
+        background-color: #333333;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        text-align: left;
+        font-size: 0.875rem;
+      }
+    }
+
+    /* Temporizador y botón */
+    .timer-container {
+      margin-top: 1rem;
+      text-align: center;
+      width: 100%;
+
+      .completed-series {
+        font-size: 0.875rem;
+        color: $secondary-color;
+        margin-top: 0.5rem;
+      }
+
+      button {
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        background-color: $primary-color;
+        color: $text-color;
+        transition: background-color 0.2s ease-in-out;
+
+        &:hover {
+          background-color: lighten($primary-color, 10%);
+        }
+
+        &:disabled {
+          background-color: $disabled-color;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+/* Mensaje cuando no hay ejercicios */
+.no-exercises {
+  text-align: center;
+  color: $secondary-color;
+  margin-top: 2rem;
+}
+
+.carousel-item {
+  transition: transform 0.3s ease-in-out;
+}
+/* Variables globales */
+$primary-color: #f8450d; // Naranja vibrante
+$secondary-color: #d0cccc; // Gris claro
+$text-color: #ffffff; // Texto blanco
+$hover-color: #ff6f61; // Rosa suave
+$background-dark: #1a1a1a; // Fondo oscuro
+$card-background: #2a2a2a; // Fondo de las tarjetas
+
+/* Estilos para AlertDialog en modo oscuro */
+.alert-dialog {
+  background-color: $card-background; // Fondo oscuro para el cuadro de diálogo
+  color: $text-color; // Texto blanco
+
+  /* Título y descripción */
+  .alert-dialog-title {
+    color: $text-color;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .alert-dialog-description {
+    color: $secondary-color;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Botones */
+  .alert-dialog-action {
+    background-color: $primary-color;
+    color: $text-color;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: lighten($primary-color, 10%);
+    }
+  }
+
+  .alert-dialog-cancel {
+    background-color: transparent;
+    color: $secondary-color;
+    border: 1px solid $secondary-color;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

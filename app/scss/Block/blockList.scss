@@ -1,0 +1,128 @@
+/* Variables globales */
+$primary-color: #f8450d;
+$secondary-color: #d0cccc;
+$text-color: #ff4500;
+$hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+/* Estructura de bloque principal */
+.block-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); // Ajusta automáticamente el número de columnas según el ancho de la pantalla
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 100%;
+  margin: 0 auto; // Centra el contenedor horizontalmente
+  padding-bottom: 60px;
+
+  /* Media queries para pantallas más grandes */
+  @media (min-width: 768px) {
+    gap: 1.5rem;
+
+    .block-item {
+      padding: 1.5rem;
+    }
+
+    .block-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Media queries para pantallas grandes (>= 1200px) */
+  @media (min-width: 990px) {
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); // Fuerza 3 columnas en pantallas grandes
+    position: relative; // Evita usar !important para position
+    top: 115px;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px; // Limita el ancho máximo del contenedor
+    margin: 0 auto; // Centra el contenedor
+  }
+}
+
+/* Estilos de los ítems del bloque */
+.block-item {
+  max-width: 220px;
+  padding: 55px 26px;
+  border-top: 2.5px solid $primary-color;
+  border-left: 2.5px solid $primary-color;
+  border-block-end: 2.5px solid $secondary-color;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: border 150ms ease-in, transform 200ms ease-in-out;
+  min-height: 240px;
+  background-image: linear-gradient(60deg, #3c2b29 0%, #485563 100%),
+    url("/bgRoutine1.png");
+  background-blend-mode: multiply, multiply;
+  background-position: center center;
+  background-size: cover;
+
+  /* Hover efecto para los ítems */
+  &:hover {
+    border: 2.5px solid $primary-color;
+
+    /* Solo para pantallas grandes */
+    @media (min-width: 990px) {
+      transform: scale(1.05);
+      box-shadow: $hover-shadow;
+    }
+  }
+
+  /* Media queries para pantallas grandes */
+  @media (min-width: 990px) {
+    max-width: 250px;
+    padding: 1.75rem;
+    border-radius: 30px;
+    min-height: 300px;
+  }
+
+  /* Media queries para pantallas pequeñas */
+  @media (max-width: 768px) {
+    max-width: 100%; // Asegura que ocupe todo el ancho disponible en pantallas pequeñas
+    padding: 1rem; // Reduce el padding para evitar desbordamientos
+    min-height: 200px; // Reduce la altura mínima
+  }
+}
+
+/* Título de los bloques */
+.block-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: $text-color;
+
+  /* Media queries para pantallas grandes */
+  @media (min-width: 990px) {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Media queries para pantallas pequeñas */
+  @media (max-width: 768px) {
+    font-size: 1rem; // Aumenta ligeramente el tamaño en pantallas pequeñas
+  }
+}
+
+/* Notas de los bloques */
+.block-notes {
+  color: $secondary-color;
+  font-size: 14px;
+
+  /* Media queries para pantallas grandes */
+  @media (min-width: 990px) {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #b0b0b0;
+  }
+
+  /* Media queries para pantallas pequeñas */
+  @media (max-width: 768px) {
+    font-size: 12px; // Reduce el tamaño en pantallas pequeñas
+    line-height: 1.4; // Mejora la legibilidad
+  }
+}

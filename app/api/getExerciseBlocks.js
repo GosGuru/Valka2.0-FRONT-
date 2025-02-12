@@ -22,7 +22,6 @@ export const getExerciseBlocks = async () => {
 
     if (!userResponse.ok) {
       const errorData = await userResponse.json();
-      console.log("Error al obtener los datos del usuario:", errorData);
       throw new Error("No se pudo obtener los datos del usuario");
     }
 

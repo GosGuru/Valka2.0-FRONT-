@@ -60,7 +60,7 @@ const PreBlockDetail: React.FC<PreBlockDetailProps> = ({
   if (error) return <div>{error}</div>;
   if (loading)
     return (
-      <div >
+      <div>
         <div className="flex items-center justify-center min-h-screen bg-[#1a1a1a] text-white">
           <div className="text-center">
             {/* Icono de carga */}

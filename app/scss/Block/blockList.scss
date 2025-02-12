@@ -44,8 +44,11 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     margin: 0 auto; // Centra el contenedor
   }
 }
-
-/* Estilos de los ítems del bloque */
+.container__list {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 .block-item {
   max-width: 220px;
   padding: 55px 26px;

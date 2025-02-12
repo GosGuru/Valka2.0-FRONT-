@@ -16,7 +16,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/authContext"; // Usa el contexto de autenticación
 import { ModeToggle } from "./mode-toggle";
-import { Exo2 } from "../ui/fonts";
+import { robotoSlab } from "../ui/fonts";
+import "../scss/Header/Header.scss";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,8 +36,14 @@ export default function Header() {
   return (
     <AppBar
       position="static"
-
-      sx={{ backgroundColor: "#1a1a1a", boxShadow: 3, width: "100%" }}
+      className="hearder"
+      sx={{
+        backgroundColor: "#1a1a1a",
+        boxShadow: 3,
+        width: "100%",
+        height: "60px",
+        fontFamily: robotoSlab.style.fontFamily,
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar
@@ -49,7 +56,13 @@ export default function Header() {
         >
           {/* Logo con enlace al inicio */}
           <Link href="/" passHref>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente al logo
+              }}
+            >
               <img
                 src="/logo.png"
                 alt="Logo Valka"
@@ -57,7 +70,7 @@ export default function Header() {
                 height={120}
                 loading="lazy"
               />
-            </div>
+            </Box>
           </Link>
 
           {/* Navegación para pantallas grandes */}
@@ -70,24 +83,46 @@ export default function Header() {
             }}
           >
             <Link href="/sobrenosotros" passHref>
-              <Button sx={{ color: "white", "&:hover": { color: "#f94510" } }}>
+              <Button
+                sx={{
+                  color: "white",
+                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                  "&:hover": { color: "#f94510" },
+                }}
+              >
                 Sobre Nosotros
               </Button>
             </Link>
             <Link href="../pages/routines" passHref>
-              <Button sx={{ color: "white", "&:hover": { color: "#f94510" } }}>
+              <Button
+                sx={{
+                  color: "white",
+                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                  "&:hover": { color: "#f94510" },
+                }}
+              >
                 Rutinas
               </Button>
             </Link>
             <Link href="/contact" passHref>
-              <Button sx={{ color: "white", "&:hover": { color: "#f94510" } }}>
+              <Button
+                sx={{
+                  color: "white",
+                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                  "&:hover": { color: "#f94510" },
+                }}
+              >
                 Contacto
               </Button>
             </Link>
             <Link href="/blog" passHref>
-              <Button 
-                
-              sx={{ color: "white", "&:hover": { color: "#f94510" } }}>
+              <Button
+                sx={{
+                  color: "white",
+                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                  "&:hover": { color: "#f94510" },
+                }}
+              >
                 Blog
               </Button>
             </Link>
@@ -100,6 +135,7 @@ export default function Header() {
                 onClick={handleLogout}
                 sx={{
                   color: "#f94510",
+                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
                   "&:hover": { color: "#ffffff", backgroundColor: "#f94510" },
                 }}
               ></Button>
@@ -120,6 +156,7 @@ export default function Header() {
                   sx={{
                     borderColor: "#f94510",
                     color: "#f94510",
+                    fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
                     "&:hover": { backgroundColor: "#f94510", color: "white" },
                     borderRadius: ".5rem",
                   }}
@@ -132,6 +169,7 @@ export default function Header() {
                   variant="contained"
                   sx={{
                     backgroundColor: "#f94510",
+                    fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
                     "&:hover": { backgroundColor: "#ffffff", color: "#f94510" },
                     borderRadius: ".5rem",
                   }}
@@ -169,7 +207,11 @@ export default function Header() {
           <Link href="/sobrenosotros" passHref>
             <Button
               fullWidth
-              sx={{ color: "white", "&:hover": { color: "#f94510" } }}
+              sx={{
+                color: "white",
+                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                "&:hover": { color: "#f94510" },
+              }}
             >
               Sobre Nosotros
             </Button>
@@ -177,7 +219,11 @@ export default function Header() {
           <Link href="../pages/routines" passHref>
             <Button
               fullWidth
-              sx={{ color: "white", "&:hover": { color: "#f94510" } }}
+              sx={{
+                color: "white",
+                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                "&:hover": { color: "#f94510" },
+              }}
             >
               Rutinas
             </Button>
@@ -185,7 +231,11 @@ export default function Header() {
           <Link href="/contact" passHref>
             <Button
               fullWidth
-              sx={{ color: "white", "&:hover": { color: "#f94510" } }}
+              sx={{
+                color: "white",
+                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                "&:hover": { color: "#f94510" },
+              }}
             >
               Contacto
             </Button>
@@ -193,7 +243,11 @@ export default function Header() {
           <Link href="/blog" passHref>
             <Button
               fullWidth
-              sx={{ color: "white", "&:hover": { color: "#f94510" } }}
+              sx={{
+                color: "white",
+                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
+                "&:hover": { color: "#f94510" },
+              }}
             >
               Blog
             </Button>
@@ -208,6 +262,7 @@ export default function Header() {
                   onClick={handleLogout}
                   sx={{
                     color: "#f94510",
+                    fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
                     "&:hover": { color: "#ffffff", backgroundColor: "#f94510" },
                   }}
                 >
@@ -231,6 +286,7 @@ export default function Header() {
                     sx={{
                       borderColor: "#f94510",
                       color: "#f94510",
+                      fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
                       "&:hover": { backgroundColor: "#f94510", color: "white" },
                       borderRadius: ".5rem",
                     }}
@@ -244,6 +300,7 @@ export default function Header() {
                     variant="contained"
                     sx={{
                       backgroundColor: "#f94510",
+                      fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
                       "&:hover": {
                         backgroundColor: "#ffffff",
                         color: "#f94510",

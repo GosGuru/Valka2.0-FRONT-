@@ -9,7 +9,7 @@ export const bebasNeue = Bebas_Neue({
 
 export const robotoSlab = Roboto_Slab({
   subsets: ["latin", "cyrillic"],
-  weight: "400",
+  weight: "600",
   variable: "--font-Roboto_Slab",
 });
 

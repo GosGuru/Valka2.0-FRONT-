@@ -22,13 +22,6 @@ export default function Home() {
           </button>
         </Link>
       </section>
-
-      {/* Footer */}
-      <footer className="py-5  px-4 text-center bg-[#1a1a1a] border-t border-gray-700">
-        <p className="text-gray-400 text-sm md:text-base font-light">
-          © 2025 Valka. Todos los derechos reservados.
-        </p>
-      </footer>
     </div>
   );
 }

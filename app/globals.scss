@@ -2,9 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-// Estilos base para el cuerpo
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 // Variables globales para light y dark mode, basadas en el sistema de color HSL
 @layer base {
   :root {

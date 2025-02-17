@@ -1,9 +1,9 @@
-.footer {
+.nav {
   display: none;
 }
 
 @media screen and (max-width: 468px) {
-  .footer {
+  .nav {
     position: fixed;
     width: 95%;
     bottom: 4px;
@@ -23,8 +23,8 @@
     z-index: 1000;
   }
 
-  /* Botones del footer */
-  .footer-button {
+  /* Botones del nav */
+  .nav-button {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,17 +38,17 @@
     transition: transform 0.25s ease, color 0.25s ease;
   }
 
-  .footer-button:hover {
+  .nav-button:hover {
     transform: scale(1.05); /* Escala ligera */
     color: #e25e32; /* Color de énfasis */
   }
 
-  .footer-button:active {
+  .nav-button:active {
     transform: scale(0.9); /* Efecto al presionar */
   }
 
   /* Iconos */
-  .footer-icon {
+  .nav-icon {
     font-size: 20px !important; /* Tamaño reducido */
     margin-bottom: 2px; /* Menor separación del texto */
     color: inherit; /* Hereda el color del botón */
@@ -56,22 +56,22 @@
 
   /* Responsividad específica */
   @media (max-width: 480px) {
-    .footer {
+    .nav {
       padding: 6px 8px; /* Espaciado más compacto */
     }
 
-    .footer-button {
+    .nav-button {
       font-size: 12px; /* Texto aún más pequeño */
       min-width: 50px; /* Reducir el ancho mínimo */
     }
 
-    .footer-icon {
+    .nav-icon {
       font-size: 18px; /* Iconos más pequeños */
     }
   }
 
   /* Animación suave */
-  .footer {
+  .nav {
     animation: fadeInUp 0.4s ease;
   }
 

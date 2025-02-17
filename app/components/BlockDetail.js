@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Activity, Repeat2, Weight, TimerReset, Anchor } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -18,6 +19,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import { Progress } from "@/components/ui/progress";
 import CustomVideoPlayer from "./CustomVideoPlayer";
 import Timer from "./Timer";
 import { ArrowBack } from "@mui/icons-material";
@@ -28,14 +30,17 @@ import {
 } from "../utils/localStorageHelper";
 import { getEjercicios } from "../api/getEjercicios";
 import { getEjercicioConVideo } from "../api/getEjerciciosVideo";
-import "../scss/Block/BlockDetail.scss"; // Importa el archivo SCSS
+import "../scss/Block/BlockDetail.scss";
 import { Exo2 } from "../ui/fonts";
 import { toast } from "sonner";
+import { ENV } from "../utils";
 
 const BlockDetail = ({ block, onBack }) => {
   const [exercises, setExercises] = useState([]);
   const [exerciseVideos, setExerciseVideos] = useState({});
   const [completedSeries, setCompletedSeries] = useState({});
+  const [progress, setProgress] = useState(0);
+  const [totalCompletedSeries, setTotalCompletedSeries] = useState(0); // Nuevo estado para el total de series completadas
   const router = useRouter();
 
   useEffect(() => {
@@ -55,10 +60,6 @@ const BlockDetail = ({ block, onBack }) => {
           return acc;
         }, {});
         setExerciseVideos(videosMap);
-        const storedProgress = loadFromLocalStorage("completedSeries");
-        if (storedProgress) {
-          setCompletedSeries(storedProgress);
-        }
       } catch (error) {
         console.error("Error al cargar ejercicios:", error);
       }
@@ -67,8 +68,7 @@ const BlockDetail = ({ block, onBack }) => {
   }, [block.id]);
 
   const resetearDia = () => {
-    localStorage.removeItem("completedSeries");
-    setCompletedSeries({});
+    setCompletedSeries({}); // Resetea solo el estado local
     toast("Las series han sido reseteadas.");
   };
 
@@ -78,14 +78,53 @@ const BlockDetail = ({ block, onBack }) => {
         ...prev,
         [exerciseId]: (prev[exerciseId] || 0) + 1,
       };
-      saveToLocalStorage("completedSeries", updatedSeries);
       return updatedSeries;
     });
   };
 
-  const handleNextExercise = () => {
-    alert("Avanzando al siguiente ejercicio...");
-    // Aquí puedes implementar la lógica para avanzar al siguiente ejercicio
+  const calculateProgressPercentage = () => {
+    if (!exercises.length) return 0;
+    let totalCompleted = 0;
+    exercises.forEach((exercise) => {
+      totalCompleted += Math.min(
+        completedSeries[exercise.id] || 0,
+        exercise.series
+      );
+    });
+    const totalSeries = exercises.reduce(
+      (sum, exercise) => sum + exercise.series,
+      0
+    );
+    console.log("totalcompeted? : ", totalCompleted);
+    console.log("totalSeries? : ", totalSeries);
+    const result = totalSeries
+      .split("")
+      .reduce((acc, digit) => acc + Number(digit), 0);
+    console.log("resultado ", result);
+    return totalSeries === 0 ? 0 : (totalCompleted / result) * 100;
+  };
+
+  const calculateTotalCompletedSeries = () => {
+    let totalCompleted = 0;
+    exercises.forEach((exercise) => {
+      totalCompleted += completedSeries[exercise.id] || 0;
+    });
+    return totalCompleted;
+  };
+
+  useEffect(() => {
+    const calculatedProgress = calculateProgressPercentage();
+    const totalCompleted = calculateTotalCompletedSeries();
+    console.log("totalCompleted:  ", totalCompleted);
+    console.log("calculatedProgress:  ", calculatedProgress);
+
+    setProgress(calculatedProgress);
+    setTotalCompletedSeries(totalCompleted);
+  }, [completedSeries, exercises]);
+
+  const handleCarouselChange = (index) => {
+    setCurrentExerciseIndex(index);
+    setProgress(calculateProgressPercentage());
   };
 
   return (
@@ -94,7 +133,6 @@ const BlockDetail = ({ block, onBack }) => {
       <button className="back-button" onClick={onBack}>
         <ArrowBack />
       </button>
-
       {/* Cuadro de diálogo de confirmación para resetear series */}
       <AlertDialog>
         <AlertDialogTrigger asChild>
@@ -122,17 +160,21 @@ const BlockDetail = ({ block, onBack }) => {
         </AlertDialogContent>
       </AlertDialog>
 
-      <h2>{block.titulo || "Bloque sin nombre"}</h2>
-      <p>{block.notes || "Sin notas"}</p>
-
+      {/* <h2>{block.titulo || "Bloque sin nombre"}</h2>
+      <p>{block.notes || "Sin notas"}</p> */}
       {exercises.length > 0 ? (
         <div>
-          <p className="navigation-tip">
+          {/* <p className="navigation-tip">
             Desliza para navegar entre los ejercicios.
-          </p>
-          <Carousel className="carousel-container">
+          </p> */}
+          <Carousel
+            className="carousel-container"
+            opts={{
+              onSnapToItem: (index) => handleCarouselChange(index),
+            }}
+          >
             <CarouselContent>
-              {exercises.map((exercise) => {
+              {exercises.map((exercise, index) => {
                 const isCompleted =
                   (completedSeries[exercise.id] || 0) >= exercise.series;
                 const videoData = exerciseVideos[String(exercise.id)];
@@ -153,11 +195,37 @@ const BlockDetail = ({ block, onBack }) => {
                           <p>No hay video disponible.</p>
                         )}
                       </div>
+                      {/* Barra de progreso */}
+                      <div className="progress-container">
+                        <p className="progress-container--p">
+                          {progress.toFixed(2)}%
+                        </p>
+                        <Progress value={progress.toFixed(2)} />
+                        <br />
+                        <p className="progress-container-series">
+                          <span className="flex align-middle justify-center gap-1">
+                            SERIES REALIZADAS{" "}
+                            <Activity className="text-green-600 " />
+                            {totalCompletedSeries}
+                          </span>
+                        </p>
+                      </div>{" "}
                       <div className="exercise-details">
-                        <span>Reps: {exercise.repeticiones || "N/A"}</span>
-                        <span>Carga: {exercise.carga || "N/A"}</span>
-                        <span>Descanso: {exercise.descanso || "N/A"}</span>
-                        <span>Series: {exercise.series || "N/A"}</span>
+                        <span className="container__details-ejercicios">
+                          Reps <Repeat2 />: {exercise.repeticiones || "N/A"}
+                        </span>
+
+                        <span className="container__details-ejercicios">
+                          Carga <Weight />: {exercise.carga || "N/A"}
+                        </span>
+
+                        <span className="container__details-ejercicios">
+                          Descanso <TimerReset />: {exercise.descanso || "N/A"}
+                        </span>
+
+                        <span className="container__details-ejercicios">
+                          Series <Anchor />: {exercise.series || "N/A"}
+                        </span>
                       </div>
                       <div className="timer-container">
                         <Timer />
@@ -178,7 +246,6 @@ const BlockDetail = ({ block, onBack }) => {
                           >
                             Completar Serie
                           </button>
-
                           {/* Botón "Next" que aparece cuando se completan las series */}
                           {isCompleted && (
                             <div className="ContenedorNext">

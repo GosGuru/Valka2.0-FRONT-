@@ -1,0 +1,118 @@
+/* Variables globales */
+$primary-color: #f8450d; // Naranja vibrante
+$secondary-color: #d0cccc; // Gris claro
+$text-color: #ffffff; // Texto blanco
+$background-dark: #1a1a1a; // Fondo oscuro
+$card-background: #2a2a2a; // Fondo de las tarjetas
+
+.footer {
+  background-color: $background-dark;
+  color: $text-color;
+  font-family: --font-Exo_2;
+  padding: 1rem 0.5rem;
+  position: static;
+  width: 100%;
+  margin-top: 5%;
+}
+
+/* Contenedor principal */
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* Desktop: cambia a diseño horizontal */
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+/* Cada sección del footer */
+.footer-section {
+  text-align: left; // Mobile-first: texto centrado
+  flex: 1; // Desktop: cada sección ocupa un espacio proporcional
+  min-width: 200px; // Evita que las secciones se colapsen en desktop
+
+  /* Títulos de las secciones */
+  .footer-title {
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+
+  /* Descripción de la sección "Sobre Nosotros" */
+  .footer-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-weight: 200;
+  }
+
+  /* Lista de enlaces rápidos */
+  .footer-links {
+    list-style: inside;
+    padding: 0;
+    color: #d0cccc;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      a {
+        color: $secondary-color;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  /* Información de contacto */
+  .footer-contact {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Iconos de redes sociales */
+  .social-icons {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    gap: 2.5rem;
+
+    a {
+      color: $text-color;
+      font-size: 1.3rem;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+/* Derechos de autor */
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: $secondary-color;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .footer-section {
+    text-align: left; // Desktop: alinea texto a la izquierda
+  }
+
+  .social-icons {
+    justify-content: flex-start; // Desktop: alinea íconos a la izquierda
+  }
+}

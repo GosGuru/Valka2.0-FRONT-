@@ -1,12 +1,12 @@
-// layout.tsx
 import type { Metadata } from "next";
-import "./globals.scss";
+import "./globals.scss"; // Importa los estilos globales
 import Header from "./components/header"; // Ajusta la ruta según tu estructura
-import Footer from "./components/FooterMovil"; // Ajusta la ruta según tu estructura
+import NavBar from "./components/NavBarMovil"; // Ajusta la ruta según tu estructura
 import { AuthProvider } from "./context/authContext";
 import { robotoSlab } from "./ui/fonts";
 import { Exo2 } from "./ui/fonts";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "./components/Footer"; // Importa el Footer
 
 export const metadata: Metadata = {
   title: "Valka",
@@ -31,6 +31,7 @@ export default function RootLayout({
           <Header />
           <main className="min-h-screen">{children}</main>
           <Toaster />
+          <NavBar />
           <Footer />
         </AuthProvider>
       </body>

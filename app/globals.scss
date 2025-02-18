@@ -68,6 +68,9 @@
   }
 }
 
+body {
+  background-color: #000;
+}
 // Aplicación de Tailwind junto con variables SCSS
 @layer base {
   * {

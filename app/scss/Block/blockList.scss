@@ -13,6 +13,7 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   max-width: 100%;
   margin: 0 auto;
   padding-bottom: 60px;
+  background-color: #000;
   width: 90dvw !important;
 
   @media (min-width: 768px) {
@@ -40,6 +41,7 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
 }
 .container__list {
+  background-color: #000;
   display: flex;
   justify-content: stretch;
   align-items: flex-start;

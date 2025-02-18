@@ -84,13 +84,16 @@ body {
 }
 
 .ejercicio__nombre {
-  color: #f5f5f5;
-  padding-inline: 15px;
-  max-width: 85dvw;
-  margin: 0 auto;
-  font-weight: 700;
-  font-family: $font_descp;
-  font-size: 19px;
+    color: #f5f5f5;
+    padding-inline: 15px;
+    max-width: 845dvw;
+    margin: 0 auto;
+    font-weight: 700;
+    max-width: 85dvw;
+    font-family: --font-Lexend_Deca;
+    font-size: 19px;
+    border: 2px solid #8eb00891;
+    border-radius: 18px;
 }
 
 .ejercicio__series--series {

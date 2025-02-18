@@ -67,7 +67,7 @@ const BlockDetail = ({ block, onBack }) => {
   }, [block.id]);
 
   const resetearDia = () => {
-    setCompletedSeries({}); // Resetea solo el estado local
+    setCompletedSeries({});
     toast("Las series han sido reseteadas.");
   };
 
@@ -182,10 +182,6 @@ const BlockDetail = ({ block, onBack }) => {
                 return (
                   <CarouselItem key={exercise.id}>
                     <div className="exercise-item">
-                      <h3>{exercise.nombre || "Ejercicio sin nombre"}</h3>
-                      <p className="difficulty">
-                        Dificultad: {exercise.dificultad || "Desconocida"}
-                      </p>
                       <div className="video-container">
                         {videoData?.url ? (
                           <CustomVideoPlayer
@@ -196,6 +192,14 @@ const BlockDetail = ({ block, onBack }) => {
                           <p>No hay video disponible.</p>
                         )}
                       </div>
+                      <h3>{exercise.nombre || "Ejercicio sin nombre"}</h3>
+                      <p
+                        className={`difficulty ${
+                          exercise.dificultad?.toLowerCase() || "desconocida"
+                        }`}
+                      >
+                        Dificultad: {exercise.dificultad || "No asignada"}
+                      </p>
                       {/* Barra de progreso */}
                       <div className="progress-container">
                         <p className="progress-container--p">
@@ -218,22 +222,22 @@ const BlockDetail = ({ block, onBack }) => {
                         </span>
 
                         <span className="container__details-ejercicios">
-                          <Weight /> 
+                          <Weight />
                           Carga: {exercise.carga || "N/A"}
                         </span>
 
                         <span className="container__details-ejercicios">
-                          <TimerReset /> 
+                          <TimerReset />
                           Descanso: {exercise.descanso || "N/A"}
                         </span>
 
                         <span className="container__details-ejercicios">
-                          <Anchor /> 
+                          <Anchor />
                           Series: {exercise.series || "N/A"}
                         </span>
                       </div>
                       <div className="timer-container">
-                        <Timer /> 
+                        <Timer />
                         <span className="completed-series">
                           Series Completadas:{" "}
                           {completedSeries[exercise.id] || 0}/

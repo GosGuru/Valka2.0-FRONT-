@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getExerciseBlocks } from "../../api/getExerciseBlocks";
@@ -16,6 +16,13 @@ const RoutinePage: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [step, setStep] = useState("list"); // "list", "pre-detail", "detail"
+
+  useEffect(() => {
+    document.body.classList.add("hide-footer");
+    return () => {
+      document.body.classList.remove("hide-footer"); // Limpia la clase al salir
+    };
+  }, []);
 
   useEffect(() => {
     const fetchBlocks = async () => {

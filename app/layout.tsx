@@ -17,8 +17,13 @@ export const metadata: Metadata = {
   },
 };
 
+interface LayoutProps {
+  children: React.ReactNode;
+  hideFooter?: boolean;
+}
 export default function RootLayout({
   children,
+  hideFooter,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -32,7 +37,7 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
           <Toaster />
           <NavBar />
-          <Footer />
+          {!hideFooter && <Footer />}
         </AuthProvider>
       </body>
     </html>

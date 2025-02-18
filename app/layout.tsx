@@ -21,12 +21,8 @@ interface LayoutProps {
   children: React.ReactNode;
   hideFooter?: boolean;
 }
-export default function RootLayout({
-  children,
-  hideFooter,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+
+export default function RootLayout({ children, hideFooter }: LayoutProps) {
   return (
     <html lang="en" className={Exo2.variable} suppressHydrationWarning>
       <body

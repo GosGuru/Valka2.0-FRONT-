@@ -1,23 +1,20 @@
 /* Variables globales */
 $primary-color: #f8450d;
 $secondary-color: #d0cccc;
-$text-color: #ff4500;
+$text-color: #000000;
 $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 
 /* Estructura de bloque principal */
 .block-list {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(200px, 1fr)
-  ); // Ajusta automáticamente el número de columnas según el ancho de la pantalla
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  padding: 1rem;
+  padding: 1rem 0;
   max-width: 100%;
-  margin: 0 auto; // Centra el contenedor horizontalmente
+  margin: 0 auto;
   padding-bottom: 60px;
+  width: 90dvw !important;
 
-  /* Media queries para pantallas más grandes */
   @media (min-width: 768px) {
     gap: 1.5rem;
 
@@ -30,18 +27,16 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     }
   }
 
-  /* Media queries para pantallas grandes (>= 1200px) */
   @media (min-width: 990px) {
-    grid-template-columns: repeat(
-      3,
-      1fr
-    ); // Fuerza 3 columnas en pantallas grandes
-    position: relative; // Evita usar !important para position
-    top: 115px;
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px; // Limita el ancho máximo del contenedor
-    margin: 0 auto; // Centra el contenedor
+    grid-template-columns: repeat(3, 1fr);
+    position: relative;
+    top: 10px;
+    gap: 15px;
+    padding: 1.2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #252838;
+    border-radius: 40px; // Centra el contenedor
   }
 }
 .container__list {
@@ -50,24 +45,21 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   align-items: flex-start;
 }
 .block-item {
+  position: relative; // Necesario para posicionar elementos absolutos
   max-width: 220px;
   padding: 55px 26px;
-  border-top: 2.5px solid $primary-color;
-  border-left: 2.5px solid $primary-color;
-  border-block-end: 2.5px solid $secondary-color;
+  border-top: 3.5px solid $primary-color;
+  border-left: 3.5px solid $primary-color;
+  border-block-end: 3.5px solid $secondary-color;
   border-radius: 25px;
   cursor: pointer;
   transition: border 150ms ease-in, transform 200ms ease-in-out;
   min-height: 240px;
-  background-image: linear-gradient(60deg, #3c2b29 0%, #485563 100%),
-    url("/bgRoutine1.png");
-  background-blend-mode: multiply, multiply;
-  background-position: center center;
-  background-size: cover;
+  overflow: hidden; // Oculta a los elementos absolutos que se salen
+  background: #0c0d12;
 
-  /* Hover efecto para los ítems */
   &:hover {
-    border: 2.5px solid $primary-color;
+    border: 3.5px solid $primary-color;
 
     /* Solo para pantallas grandes */
     @media (min-width: 990px) {
@@ -94,10 +86,18 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 
 /* Título de los bloques */
 .block-title {
-  font-size: 0.9rem;
+  font-size: 1.5rem !important;
   font-weight: bold;
   margin-bottom: 0.5rem;
   color: $text-color;
+  font-family: var(--font-Roboto_Slab) !important;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5) !important;
+  color: #fff !important;
+  background: linear-gradient(188deg, #777777, #c0382b, #f39c19) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block; // Asegura que el degradado se aplique correctamente
 
   /* Media queries para pantallas grandes */
   @media (min-width: 990px) {
@@ -114,7 +114,7 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 /* Notas de los bloques */
 .block-notes {
   color: $secondary-color;
-  font-size: 14px;
+  font-size: 18px !important;
 
   /* Media queries para pantallas grandes */
   @media (min-width: 990px) {

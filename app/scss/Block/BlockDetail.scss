@@ -29,6 +29,14 @@ $card-background: #2a2a2a;
   position: relative;
   background-color: $card-background; // Fondo de las tarjetas
   overflow: hidden;
+
+  .container__tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 15px;
+  }
+
   .container__details-ejercicios {
     display: flex;
     justify-content: flex-start;

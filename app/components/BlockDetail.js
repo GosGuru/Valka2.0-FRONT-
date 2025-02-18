@@ -31,7 +31,6 @@ import {
 import { getEjercicios } from "../api/getEjercicios";
 import { getEjercicioConVideo } from "../api/getEjerciciosVideo";
 import "../scss/Block/BlockDetail.scss";
-import { Exo2 } from "../ui/fonts";
 import { toast } from "sonner";
 import { ENV } from "../utils";
 
@@ -130,40 +129,42 @@ const BlockDetail = ({ block, onBack }) => {
   return (
     <div className="block-detail">
       {/* Botón para volver */}
-      <button className="back-button" onClick={onBack}>
-        <ArrowBack />
-      </button>
-      {/* Cuadro de diálogo de confirmación para resetear series */}
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <button className="reset-button">Resetear Series</button>
-        </AlertDialogTrigger>
-        <AlertDialogContent className="alert-dialog">
-          <AlertDialogHeader>
-            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Esta acción no se puede deshacer. Se reiniciarán todas las series
-              completadas.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="alert-dialog-cancel">
-              Cancelar
-            </AlertDialogCancel>
-            <AlertDialogAction
-              className="alert-dialog-action"
-              onClick={resetearDia}
-            >
-              Continuar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
 
       {/* <h2>{block.titulo || "Bloque sin nombre"}</h2>
       <p>{block.notes || "Sin notas"}</p> */}
       {exercises.length > 0 ? (
         <div>
+          <div className="container__tools">
+            <button className="back-button" onClick={onBack}>
+              <ArrowBack />
+            </button>
+            {/* Cuadro de diálogo de confirmación para resetear series */}
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button className="reset-button">Resetear Series</button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="alert-dialog">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Esta acción no se puede deshacer. Se reiniciarán todas las
+                    series completadas.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="alert-dialog-cancel">
+                    Cancelar
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    className="alert-dialog-action"
+                    onClick={resetearDia}
+                  >
+                    Continuar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
           {/* <p className="navigation-tip">
             Desliza para navegar entre los ejercicios.
           </p> */}
@@ -212,23 +213,27 @@ const BlockDetail = ({ block, onBack }) => {
                       </div>{" "}
                       <div className="exercise-details">
                         <span className="container__details-ejercicios">
-                          Reps <Repeat2 />: {exercise.repeticiones || "N/A"}
+                          <Repeat2 />
+                          Reps: {exercise.repeticiones || "N/A"}
                         </span>
 
                         <span className="container__details-ejercicios">
-                          Carga <Weight />: {exercise.carga || "N/A"}
+                          <Weight /> 
+                          Carga: {exercise.carga || "N/A"}
                         </span>
 
                         <span className="container__details-ejercicios">
-                          Descanso <TimerReset />: {exercise.descanso || "N/A"}
+                          <TimerReset /> 
+                          Descanso: {exercise.descanso || "N/A"}
                         </span>
 
                         <span className="container__details-ejercicios">
-                          Series <Anchor />: {exercise.series || "N/A"}
+                          <Anchor /> 
+                          Series: {exercise.series || "N/A"}
                         </span>
                       </div>
                       <div className="timer-container">
-                        <Timer />
+                        <Timer /> 
                         <span className="completed-series">
                           Series Completadas:{" "}
                           {completedSeries[exercise.id] || 0}/

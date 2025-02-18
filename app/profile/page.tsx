@@ -1,34 +1,35 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Importamos el hook de navegación
 import styles from "../scss/profile/profile.module.scss";
-// Usamos la función de la API que ya tenemos definida
 import { getUser } from "../api/getUser";
-import { useAuth } from "../context/authContext"; // Si manejas el token o datos desde el contexto
+import { useAuth } from "../context/authContext";
+import Loading from "../components/Loading";
+import { Separator } from "@/components/ui/separator";
 
 // Definimos una interfaz para tipar los datos del usuario
 interface UserProfile {
   id: number;
   username: string;
   email: string;
+  Marca: string;
   fotoPerfil: string | null;
 }
 
 const defaultAvatar = "/default-avatar.png";
 
 const ProfilePage = () => {
-  // Si ya tienes el token en el contexto, lo podemos obtener; de lo contrario, lo sacamos del localStorage.
+  const router = useRouter();
   const { token: authToken } = useAuth();
 
-  // Estado local para el usuario y para el loading
+  // Estados locales para el usuario y el loading
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Hacemos la llamada a la API usando la función getUser
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Obtenemos el token: priorizamos el token del contexto, y si no, lo sacamos de localStorage.
         const token = authToken || localStorage.getItem("authToken");
         if (!token) {
           throw new Error("No hay token de autenticación");
@@ -36,12 +37,12 @@ const ProfilePage = () => {
 
         const data = await getUser(token);
 
-        // Transformamos los datos de acuerdo a lo que necesitemos.
-        // Por ejemplo, si data.fotoPerfil es un objeto, obtenemos la URL.
         const userData: UserProfile = {
           id: data.id,
           username: data.username,
           email: data.email,
+          // La API retorna "Marcas", pero en nuestro modelo se llama "Marca" para mostrarlo.
+          Marca: data.Marcas,
           fotoPerfil: data.fotoPerfil ? data.fotoPerfil.url : null,
         };
         setUser(userData);
@@ -56,43 +57,27 @@ const ProfilePage = () => {
     fetchUserData();
   }, [authToken]);
 
-  // Mientras carga, mostramos un mensaje de "cargando..."
-  if (loading) return <p>Cargando...</p>;
+  // Una vez que finaliza la carga, si no hay usuario autenticado redirigimos a login
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [loading, user, router]);
 
-  // Si no se pudo obtener el usuario, mostramos mensaje o redirigimos
-  if (!user) return <p>No autorizado. Debes iniciar sesión.</p>;
+  if (loading) <Loading />;
 
-  // Función para manejar el cambio de foto de perfil.
-  // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  // //     const reader = new FileReader();
-  // //     reader.onload = (event) => {
-  // //       if (event.target?.result) {
-  // //         setUser((prevUser: UserProfile) => ({
-  // //           ...prevUser,
-  // //           fotoPerfil: event.target!.result as string,
-  // //         }));
-  // //         // Aquí podrías hacer una petición para actualizar la foto en tu backend (Strapi)
-  // //       }
-  // //     };
-  // //     reader.readAsDataURL(file);
-  // //   }
-  // // };
+  // Si ya redirigió, retornamos null para no renderizar nada
+  if (!user) return null;
 
-  // Función para disparar el input file de forma programática.
   const handleUploadClick = () => {
     document.getElementById("fileInput")?.click();
   };
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1>Mi Perfil</h1>
-      </header>
-      <h1 className="fixed top m-1 text-3xl text-red-800 bg-slate-400">Página en MANTENIMIENTO</h1>
+      <h1>Mi Perfil de {user.username}</h1>
+
       <main className={styles.profileCard}>
-        {/* Sección de la foto de perfil */}
         <div className={styles.profilePhoto}>
           <img
             src={user.fotoPerfil || defaultAvatar}
@@ -111,10 +96,12 @@ const ProfilePage = () => {
             style={{ display: "none" }}
           />
         </div>
-        {/* Sección de información del usuario */}
+
+        <Separator orientation="vertical" />
         <div className={styles.profileInfo}>
           <h2>{user.username}</h2>
           <p>{user.email}</p>
+          <p className="text-cyan-900">Marcas: {user.Marca}</p>
         </div>
       </main>
     </div>

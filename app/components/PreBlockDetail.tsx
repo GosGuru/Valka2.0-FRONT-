@@ -7,10 +7,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import "../scss/preparedEjercicio/style.scss";
-import { ChevronLeft } from "lucide-react";
+import "../scss/Block/style.scss";
+import { ChevronLeft, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Loading from "./Loading";
+import { Timer, Repeat2, Weight, TimerReset, Anchor } from "lucide-react";
 
 interface Block {
   id: number;
@@ -24,7 +26,9 @@ interface Ejercicio {
   series: string;
   carga: string; // Puede ser un número o una cadena (dependiendo de tus datos)
   repeticiones: string;
+  descanso: string;
 }
+
 interface PreBlockDetailProps {
   block: Block;
   onBack: () => void;
@@ -39,6 +43,7 @@ const PreBlockDetail: React.FC<PreBlockDetailProps> = ({
   const [ejercicios, setEjercicios] = useState<Ejercicio[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const router = useRouter();
 
@@ -57,40 +62,16 @@ const PreBlockDetail: React.FC<PreBlockDetailProps> = ({
     fetchData();
   }, [block.id]);
 
-  if (error) return <div>{error}</div>;
-  if (loading)
-    return (
-      <div>
-        <div className="flex items-center justify-center min-h-screen bg-[#1a1a1a] text-white">
-          <div className="text-center">
-            {/* Icono de carga */}
-            <svg
-              className="animate-spin h-12 w-12 mx-auto mb-4 text-[#f94510]"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
+  const handleComenzarRutina = () => {
+    setIsPlaying(true);
+    // Espera 500ms para mostrar la animación y luego ejecutar la acción
+    setTimeout(() => {
+      onNext();
+    }, 200);
+  };
 
-            {/* Texto de carga */}
-            <p className="text-gray-400 text-sm">Cargando...</p>
-          </div>
-        </div>
-      </div>
-    );
+  if (error) return <div>{error}</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className="container">
@@ -107,35 +88,67 @@ const PreBlockDetail: React.FC<PreBlockDetailProps> = ({
           >
             <ChevronLeft />
           </Button>
-          {/* Botón para continuar al detalle completo */}
-          <Button className="container__goRutina" onClick={onNext}>
-            Ver Detalles Completos
+          {/* Botón para comenzar la rutina con animación de iconos */}
+          <Button
+            className="container__goRutina flex items-center space-x-2"
+            onClick={handleComenzarRutina}
+          >
+            <div className="relative flex items-center justify-center w-6 h-6">
+              <Play
+                className={`absolute inset-1 w-full h-full transition-opacity duration-500 ${
+                  isPlaying ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <Pause
+                className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
+                  isPlaying ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            </div>
+            <span>COMENZAR RUTINA</span>
           </Button>
         </div>
       </div>
-      <Accordion type="single" collapsible>
+      <Accordion type="single" className="containerAcordion" collapsible>
         {ejercicios.length > 0 ? (
           ejercicios.map((ejercicio) => (
             <AccordionItem key={ejercicio.id} value={`item-${ejercicio.id}`}>
               <AccordionTrigger className="ejercicio__nombre">
                 {ejercicio.nombre}
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="containerAcordion">
                 <div className="ejercicio__container">
                   <p>
-                    <span>Series:</span>{" "}
-                    <span className="ejercicio__series">
-                      {ejercicio.series}
+                    <span className="ejercicio__reps span">
+                      <Anchor />
+                      Series
+                      <span className="ejercicio__series">
+                        {ejercicio.series}
+                      </span>
                     </span>
                   </p>
                   <p>
-                    <span>Carga:</span>{" "}
-                    <span className="ejercicio__tiempo">{ejercicio.carga}</span>
+                    <span className="ejercicio__reps span">
+                      <Weight />
+                      Carga:
+                      <span className="ejercicio__tiempo">
+                        {ejercicio.carga}
+                      </span>
+                    </span>
+                    <span className="ejercicio__reps span">
+                      <Timer />
+                      Descanso:
+                      <span className="ejercicio__tiempo">
+                        {ejercicio.descanso}
+                      </span>
+                    </span>
                   </p>
                   <p className="ejercicio__reps">
-                    <span>Repeticiones:</span>{" "}
-                    <span className="ejercicio__series--series">
-                      {ejercicio.repeticiones}
+                    <span className="ejercicio__reps span">
+                      <Repeat2 /> Repeticiones
+                      <span className="ejercicio__series--series">
+                        {ejercicio.repeticiones}
+                      </span>
                     </span>
                   </p>
                 </div>

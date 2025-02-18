@@ -1,0 +1,89 @@
+/* Estilos generales del Accordion */
+.accordion {
+  &-item {
+    border: 1px solid #4a5568; /* Borde negro/gris fuerte */
+    border-radius: 0.375rem; /* Bordes redondeados */
+    margin-bottom: 0.5rem; /* Espaciado entre elementos */
+    overflow: hidden; /* Para que no se vean bordes redondeados mal al abrir */
+
+    &:last-child {
+      margin-bottom: 0; /* Eliminar margen inferior en el último elemento */
+    }
+  }
+
+  &-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem; /* Padding vertical y horizontal */
+    font-size: 0.875rem; /* Tamaño de fuente */
+    font-weight: 500; /* Peso de la fuente */
+    color: #2d3748; /* Color del texto */
+    background-color: #f7fafc; /* Fondo gris claro */
+    transition: all 0.2s ease-in-out; /* Transición suave */
+    border-radius: 0.375rem 0.375rem 0 0; /* Redondear solo la parte superior */
+    cursor: pointer;
+
+    &:hover {
+      background-color: #edf2f7; /* Cambio de fondo al pasar el mouse */
+    }
+
+    &[data-state="open"] {
+      border-radius: 0.375rem 0.375rem 0 0; /* Mantener redondeo superior */
+      background-color: #e2e8f0; /* Cambio de fondo cuando está abierto */
+    }
+
+    svg {
+      height: 1rem;
+      width: 1rem;
+      color: #718096; /* Color del ícono */
+      transition: transform 0.2s ease-in-out; /* Animación de rotación */
+      transform: rotate(0deg);
+
+      &[data-state="open"] {
+        transform: rotate(180deg); /* Rotación del ícono al abrir */
+      }
+    }
+  }
+
+  &-content {
+    background-color: #cbd5e0; /* Fondo ligeramente más claro */
+    color: #4a5568; /* Color del texto */
+    padding: 1rem; /* Padding interno */
+    font-size: 0.875rem; /* Tamaño de fuente */
+    line-height: 1.5; /* Espaciado entre líneas */
+    overflow: hidden; /* Ocultar contenido desbordado */
+    transition: all 0.2s ease-in-out; /* Transición suave */
+
+    &[data-state="closed"] {
+      animation: accordion-up 0.2s ease-out; /* Animación al cerrar */
+    }
+
+    &[data-state="open"] {
+      animation: accordion-down 0.2s ease-out; /* Animación al abrir */
+    }
+  }
+}
+
+/* Animaciones */
+@keyframes accordion-up {
+  from {
+    opacity: 1;
+    max-height: 100px; /* Altura máxima inicial */
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 100px; /* Altura máxima final */
+  }
+}

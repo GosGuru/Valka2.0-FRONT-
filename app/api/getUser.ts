@@ -21,3 +21,27 @@ export async function getUser(token: string | null) {
   const data = await response.json();
   return data;
 }
+export async function updateUser(
+  token: string | null,
+  userId: number,
+  userData: { username: string; email: string; Marcas: string }
+) {
+  if (!token) {
+    throw new Error("No hay token de autenticación");
+  }
+
+  const response = await fetch(`${ENV.API_BASE_URL}/api/users/${userId}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al actualizar el usuario");
+  }
+
+  return await response.json();
+}

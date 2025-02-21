@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { Separator } from "@/components/ui/separator";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -165,6 +167,8 @@ const BlockDetail = ({ block, onBack }) => {
               </AlertDialogContent>
             </AlertDialog>
           </div>
+          <Separator orientation="vertical" />
+
           {/* <p className="navigation-tip">
             Desliza para navegar entre los ejercicios.
           </p> */}

@@ -6,19 +6,6 @@ import BlockList from "../../components/BlockList";
 import BlockDetail from "../../components/BlockDetail";
 import PreBlockDetail from "../../components/PreBlockDetail";
 
-// Componente para mostrar un mensaje cuando no hay bloques
-const EmptyState: React.FC = () => {
-  return (
-    <div className="empty-state">
-      {/* Icono */}
-      <div className="empty-state-icon">💪</div>
-      {/* Mensaje principal */}
-      <h2>¡Ups! Parece que no tienes ninguna rutina asignada.</h2>
-      <p>No te preocupes, pronto tendrás nuevos ejercicios para disfrutar.</p>
-    </div>
-  );
-};
-
 interface Block {
   id: number;
   name: string;
@@ -79,9 +66,7 @@ const RoutinePage: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-          >
-            <EmptyState />
-          </motion.div>
+          ></motion.div>
         )}
 
         {/* Renderiza la lista de bloques si hay datos */}

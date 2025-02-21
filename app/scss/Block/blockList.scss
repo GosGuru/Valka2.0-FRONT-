@@ -15,14 +15,13 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   padding-bottom: 60px;
   background-color: #000;
   width: 90dvw !important;
+  height: 100dvh !important ;
 
   @media (min-width: 768px) {
     gap: 1.5rem;
-
     .block-item {
       padding: 1.5rem;
     }
-
     .block-title {
       font-size: 1.5rem;
     }
@@ -37,15 +36,18 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     max-width: 1200px;
     margin: 0 auto;
     background-color: #252838;
-    border-radius: 40px; // Centra el contenedor
+    border-radius: 40px;
+    height: 100dvh;
   }
 }
+
 .container__list {
   background-color: #000;
   display: flex;
   justify-content: stretch;
   align-items: flex-start;
 }
+
 .block-item {
   position: relative; // Necesario para posicionar elementos absolutos
   max-width: 220px;
@@ -129,5 +131,54 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   @media (max-width: 768px) {
     font-size: 12px; // Reduce el tamaño en pantallas pequeñas
     line-height: 1.4; // Mejora la legibilidad
+  }
+}
+
+/* Estilos para el estado vacío */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  color: $text-color;
+  background-color: #0c0d12;
+  padding: 2rem;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: $primary-color;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: $secondary-color;
+    line-height: 1.6;
+  }
+
+  /* Media queries para pantallas grandes */
+  @media (min-width: 990px) {
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Media queries para pantallas pequeñas */
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
   }
 }

@@ -60,7 +60,7 @@ const BlockDetail = ({ block, onBack }) => {
         }, {});
         setExerciseVideos(videosMap);
       } catch (error) {
-        console.error("Error al cargar ejercicios:", error);
+        console.log("Error al cargar ejercicios:", error);
       }
     };
     fetchExercises();

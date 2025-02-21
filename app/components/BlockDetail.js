@@ -241,7 +241,6 @@ const BlockDetail = ({ block, onBack }) => {
                         </span>
                       </div>
                       <div className="timer-container">
-                        <Timer />
                         <span className="completed-series">
                           Series Completadas:{" "}
                           {completedSeries[exercise.id] || 0}/

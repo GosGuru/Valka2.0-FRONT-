@@ -212,7 +212,7 @@ const BlockDetail = ({ block, onBack }) => {
                         <Progress value={progress.toFixed(2)} />
                         <br />
                         <p className="progress-container-series">
-                          <span className="flex align-middle justify-center gap-1">
+                          <span className="series__realizadas">
                             SERIES REALIZADAS{" "}
                             <Activity className="text-green-600 " />
                             {totalCompletedSeries}

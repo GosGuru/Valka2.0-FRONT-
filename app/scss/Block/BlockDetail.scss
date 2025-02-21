@@ -30,7 +30,6 @@ body {
 
 /* Estilos generales */
 .block-detail {
-  padding: 0.3rem;
   background-color: $background-dark;
   color: $text-color;
   min-height: 100vh;
@@ -59,7 +58,8 @@ body {
     align-items: center;
     flex-direction: column;
     position: relative;
-    margin-top: 48px;
+    margin-bottom: 25px;
+    margin-top: 50px;
 
     p.progress-container--p {
       position: absolute;
@@ -119,7 +119,7 @@ body {
     text-align: center;
     margin-top: 2.9rem;
     margin-bottom: 1rem;
-    font-family: --font-Exo_2;
+    font-family: var(--font-Exo_2);
     animation: fadeIn 0.5s ease-out forwards;
   }
 
@@ -134,7 +134,7 @@ body {
   p.navigation-tip {
     color: rgba(255, 87, 87, 0.37);
     font-weight: bold;
-    font-family: --font-Exo_2;
+    font-family: --font-Exo_2 !important;
     margin-bottom: 0;
     font-size: 22px;
   }
@@ -200,7 +200,7 @@ body {
     text-align: center;
     color: $titulos;
     margin-bottom: 0.5rem;
-    font-family: --font-Bebas_Neue;
+    font-family: --font-Bebas_Neue !important;
     animation: fadeIn 0.5s ease-out forwards;
   }
 
@@ -213,7 +213,7 @@ body {
     display: inline-block;
     font-size: 0.8rem;
     letter-spacing: 0px;
-    font-family: --font-Bebas_Neue;
+    font-family: --font-Bebas_Neue !important;
     display: flex;
     justify-content: center;
     margin: 0 auto;
@@ -261,6 +261,12 @@ body {
       margin-top: 0.5rem;
     }
   }
+  .series__realizadas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
 
   /* Detalles del ejercicio (reps, carga, etc.) */
   .exercise-details {
@@ -286,7 +292,7 @@ body {
     border: 2px solid #073719 !important;
     color: #fff !important;
     font-weight: bold;
-    font-family: --font-Exo_2;
+    font-family: --font-Exo_2 !important;
     transition: all 0.3s ease-in-out;
 
     &:focus {

@@ -85,9 +85,9 @@ const RoutinePage: React.FC = () => {
         {step === "pre-detail" && selectedBlock && (
           <motion.div
             key="pre-detail"
-            initial={{ x: "100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "-100%", opacity: 0 }}
+            initial={{ x: "-100%", opacity: 0 }}
+            animate={{ x: 5, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
             <PreBlockDetail
@@ -102,7 +102,7 @@ const RoutinePage: React.FC = () => {
           <motion.div
             key="detail"
             initial={{ x: "100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
+            animate={{ x: 5, opacity: 1 }}
             exit={{ x: "-100%", opacity: 0 }}
             transition={{ duration: 0.3 }}
           >

@@ -13,7 +13,6 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   max-width: 100%;
   margin: 0 auto;
   padding-bottom: 80px !important;
-  background-color: #000;
   width: 90dvw !important;
   height: 100dvh !important ;
 
@@ -34,18 +33,19 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     gap: 15px;
     padding: 1.2rem;
     max-width: 1200px;
-    margin: 0 auto;
-    background-color: #252838;
+    margin: 55px auto;
+    background-color: #333;
     border-radius: 40px;
     height: 100dvh;
   }
 }
 
 .container__list {
-  background-color: #000;
+  background-color: #0e0e0e;
   display: flex;
   justify-content: stretch;
   align-items: flex-start;
+  margin: 0 auto;
 }
 
 .block-item {
@@ -59,7 +59,7 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   transition: border 150ms ease-in, transform 200ms ease-in-out;
   min-height: 240px;
-  overflow: hidden; // Oculta a los elementos absolutos que se salen
+  overflow: hidden;
   background: #0c0d12;
 
   &:hover {
@@ -94,7 +94,6 @@ $hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   font-weight: bold;
   margin-bottom: 0.5rem;
   color: $text-color;
-  font-family: --font-Roboto_Slab !important;
   text-transform: uppercase;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5) !important;
   color: #fff !important;

@@ -40,6 +40,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Exo2,
+  zain,
+  lexendDeca,
+  bebasNeue,
+
+} from "../ui/fonts";
 
 const BlockDetail = ({ block, onBack }) => {
   const [exercises, setExercises] = useState([]);
@@ -146,24 +153,30 @@ const BlockDetail = ({ block, onBack }) => {
               <ArrowBack />
             </button>
             {/* Cuadro de diálogo de confirmación para resetear series */}
-            <AlertDialog>
+            <AlertDialog className="rounded-lg border-[#c5512d]">
               <AlertDialogTrigger asChild>
-                <button className="reset-button">Resetear Series</button>
+                <button className={`reset-button ${Exo2.className}`}>
+                  Resetear Series
+                </button>
               </AlertDialogTrigger>
               <AlertDialogContent className="alert-dialog">
                 <AlertDialogHeader>
-                  <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                  <AlertDialogDescription>
+                  <AlertDialogTitle className={`${zain.className}`}>
+                    ¿Estás seguro?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription className={`${lexendDeca.className}`}>
                     Esta acción no se puede deshacer. Se reiniciarán todas las
                     series completadas.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel className="alert-dialog-cancel">
+                  <AlertDialogCancel
+                    className={`alert-dialog-cancel ${lexendDeca.className}`}
+                  >
                     Cancelar
                   </AlertDialogCancel>
                   <AlertDialogAction
-                    className="alert-dialog-action"
+                    className={`alert-dialog-action ${lexendDeca.className}`}
                     onClick={resetearDia}
                   >
                     Continuar
@@ -172,11 +185,6 @@ const BlockDetail = ({ block, onBack }) => {
               </AlertDialogContent>
             </AlertDialog>
           </div>
-          <Separator orientation="vertical" />
-
-          {/* <p className="navigation-tip">
-            Desliza para navegar entre los ejercicios.
-          </p> */}
           <Carousel
             className="carousel-container"
             opts={{
@@ -201,9 +209,11 @@ const BlockDetail = ({ block, onBack }) => {
                           <p>No hay video disponible.</p>
                         )}
                       </div>
-                      <h3>{exercise.nombre || "Ejercicio sin nombre"}</h3>
+                      <h3 className={`${bebasNeue.className}`}>
+                        {exercise.nombre || "Ejercicio sin nombre"}
+                      </h3>
                       <p
-                        className={`difficulty ${
+                        className={`difficulty ${zain.className} ${
                           exercise.dificultad?.toLowerCase() || "desconocida"
                         }`}
                       >
@@ -211,13 +221,17 @@ const BlockDetail = ({ block, onBack }) => {
                       </p>
                       {/* Barra de progreso */}
                       <div className="progress-container">
-                        <p className="progress-container--p">
+                        <p
+                          className={`progress-container--p ${Exo2.className}`}
+                        >
                           {progress.toFixed(2)}%
                         </p>
                         <Progress value={progress.toFixed(2)} />
                         <br />
                         <p className="progress-container-series">
-                          <span className="series__realizadas">
+                          <span
+                            className={`series__realizadas ${lexendDeca.className}`}
+                          >
                             SERIES REALIZADAS{" "}
                             <Activity className="text-green-600 " />
                             {totalCompletedSeries}
@@ -226,7 +240,9 @@ const BlockDetail = ({ block, onBack }) => {
                       </div>{" "}
                       <div className="exercise-details">
                         <Popover>
-                          <span className="container__details-ejercicios">
+                          <span
+                            className={`container__details-ejercicios ${Exo2.className}`}
+                          >
                             <Repeat2 />
                             <PopoverTrigger>
                               Reps: {exercise.repeticiones || "N/A"}
@@ -241,7 +257,9 @@ const BlockDetail = ({ block, onBack }) => {
                         </Popover>
 
                         <Popover>
-                          <span className="container__details-ejercicios">
+                          <span
+                            className={`container__details-ejercicios ${Exo2.className}`}
+                          >
                             <Weight />
                             <PopoverTrigger>
                               {" "}
@@ -257,7 +275,9 @@ const BlockDetail = ({ block, onBack }) => {
                         </Popover>
 
                         <Popover>
-                          <span className="container__details-ejercicios">
+                          <span
+                            className={`container__details-ejercicios ${Exo2.className}`}
+                          >
                             <TimerReset />
                             <PopoverTrigger>
                               Descanso: {exercise.descanso || "N/A"}
@@ -272,7 +292,9 @@ const BlockDetail = ({ block, onBack }) => {
                         </Popover>
 
                         <Popover>
-                          <span className="container__details-ejercicios">
+                          <span
+                            className={`container__details-ejercicios ${Exo2.className}`}
+                          >
                             <Anchor />
                             <PopoverTrigger>
                               Series: {exercise.series || "N/A"}
@@ -287,7 +309,7 @@ const BlockDetail = ({ block, onBack }) => {
                         </Popover>
                       </div>
                       <div className="timer-container">
-                        <span className="completed-series">
+                        <span className={`completed-series ${zain.className}`}>
                           Series Completadas:{" "}
                           {completedSeries[exercise.id] || 0}/
                           {exercise.series || "N/A"}
@@ -300,7 +322,7 @@ const BlockDetail = ({ block, onBack }) => {
                               (completedSeries[exercise.id] || 0) >=
                               exercise.series
                             }
-                            className="complete-button"
+                            className={`complete-button ${Exo2.className}`}
                           >
                             Completar Serie
                           </button>

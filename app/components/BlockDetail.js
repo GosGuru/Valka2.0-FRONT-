@@ -35,6 +35,11 @@ import { getEjercicioConVideo } from "../api/getEjerciciosVideo";
 import "../scss/Block/BlockDetail.scss";
 import { toast } from "sonner";
 import { ENV } from "../utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const BlockDetail = ({ block, onBack }) => {
   const [exercises, setExercises] = useState([]);
@@ -220,25 +225,66 @@ const BlockDetail = ({ block, onBack }) => {
                         </p>
                       </div>{" "}
                       <div className="exercise-details">
-                        <span className="container__details-ejercicios">
-                          <Repeat2 />
-                          Reps: {exercise.repeticiones || "N/A"}
-                        </span>
+                        <Popover>
+                          <span className="container__details-ejercicios">
+                            <Repeat2 />
+                            <PopoverTrigger>
+                              Reps: {exercise.repeticiones || "N/A"}
+                            </PopoverTrigger>
+                            <PopoverContent
+                              side="top"
+                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                            >
+                              Repeticiones
+                            </PopoverContent>
+                          </span>
+                        </Popover>
 
-                        <span className="container__details-ejercicios">
-                          <Weight />
-                          Carga: {exercise.carga || "N/A"}
-                        </span>
+                        <Popover>
+                          <span className="container__details-ejercicios">
+                            <Weight />
+                            <PopoverTrigger>
+                              {" "}
+                              Carga: {exercise.carga || "N/A"}
+                            </PopoverTrigger>
+                            <PopoverContent
+                              side="top"
+                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                            >
+                              Peso complementario
+                            </PopoverContent>
+                          </span>
+                        </Popover>
 
-                        <span className="container__details-ejercicios">
-                          <TimerReset />
-                          Descanso: {exercise.descanso || "N/A"}
-                        </span>
+                        <Popover>
+                          <span className="container__details-ejercicios">
+                            <TimerReset />
+                            <PopoverTrigger>
+                              Descanso: {exercise.descanso || "N/A"}
+                            </PopoverTrigger>
+                            <PopoverContent
+                              side="bottom"
+                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                            >
+                              Tiempo de descanso
+                            </PopoverContent>
+                          </span>
+                        </Popover>
 
-                        <span className="container__details-ejercicios">
-                          <Anchor />
-                          Series: {exercise.series || "N/A"}
-                        </span>
+                        <Popover>
+                          <span className="container__details-ejercicios">
+                            <Anchor />
+                            <PopoverTrigger>
+                              Series: {exercise.series || "N/A"}
+                            </PopoverTrigger>
+                            <PopoverContent
+                              side="bottom"
+                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                            >
+                              Número de series
+                            </PopoverContent>
+                          </span>
+                        </Popover>
                       </div>
                       <div className="timer-container">
                         <span className="completed-series">

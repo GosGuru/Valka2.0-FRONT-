@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.scss"; // Importa los estilos globales
+import "./globals.css"; // Importa los estilos globales
 import Header from "./components/header"; // Ajusta la ruta según tu estructura
 import NavBar from "./components/NavBarMovil"; // Ajusta la ruta según tu estructura
 import { AuthProvider } from "./context/authContext";

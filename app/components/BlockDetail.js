@@ -40,13 +40,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Exo2,
-  zain,
-  lexendDeca,
-  bebasNeue,
-
-} from "../ui/fonts";
+import { Exo2, zain, lexendDeca, bebasNeue } from "../ui/fonts";
 
 const BlockDetail = ({ block, onBack }) => {
   const [exercises, setExercises] = useState([]);
@@ -95,26 +89,32 @@ const BlockDetail = ({ block, onBack }) => {
     });
   };
 
+  const parseSeriesValue = (seriesValue) => {
+    if (typeof seriesValue === "string") {
+      const numericPart = parseInt(seriesValue);
+      return isNaN(numericPart) ? 0 : numericPart; // Devuelve 0 si no puede convertir a número
+    }
+    return seriesValue;
+  };
+
   const calculateProgressPercentage = () => {
     if (!exercises.length) return 0;
     let totalCompleted = 0;
+    let totalSeries = 0;
+
     exercises.forEach((exercise) => {
+      const seriesValue = parseSeriesValue(exercise.series);
       totalCompleted += Math.min(
         completedSeries[exercise.id] || 0,
-        exercise.series
+        seriesValue
       );
+      totalSeries += seriesValue;
     });
-    const totalSeries = exercises.reduce(
-      (sum, exercise) => sum + exercise.series,
-      0
-    );
-    console.log("totalcompeted? : ", totalCompleted);
+
+    console.log("totalCompleted? : ", totalCompleted);
     console.log("totalSeries? : ", totalSeries);
-    const result = totalSeries
-      .split("")
-      .reduce((acc, digit) => acc + Number(digit), 0);
-    console.log("resultado ", result);
-    return totalSeries === 0 ? 0 : (totalCompleted / result) * 100;
+
+    return totalSeries === 0 ? 0 : (totalCompleted / totalSeries) * 100;
   };
 
   const calculateTotalCompletedSeries = () => {

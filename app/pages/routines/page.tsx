@@ -6,6 +6,10 @@ import BlockList from "../../components/BlockList";
 import BlockDetail from "../../components/BlockDetail";
 import PreBlockDetail from "../../components/PreBlockDetail";
 import "../../scss/Routine/routine.scss";
+import Link from "next/link";
+import { bebasNeue } from "../../ui/fonts";
+import { useTheme } from "next-themes";
+import { ClassNames } from "@emotion/react";
 interface Block {
   id: number;
   name: string;
@@ -66,9 +70,13 @@ const RoutinePage: React.FC = () => {
     setSelectedBlock(null);
     setStep("list");
   };
-
+  const { theme } = useTheme();
   return (
-    <div className="routine-page">
+    <div
+      className={`routine-page ${
+        theme === "dark" ? "bg-[#0C0207] text-orange-400" : "bg-white"
+      }`}
+    >
       <AnimatePresence mode="wait">
         {/* Estado cuando el usuario no está logueado */}
         {!isLoggedIn && (
@@ -91,6 +99,18 @@ const RoutinePage: React.FC = () => {
             <p className="empty-description">
               Por favor, inicia sesión para ver tus rutinas personalizadas.
             </p>
+            <Link
+              href={"../../join/loginForm"}
+              className={`${
+                bebasNeue.className
+              } text-2xl mt-5 py-2 px-6 rounded-sm ${
+                theme === "dark"
+                  ? "bg-[#0C0207] text-orange-400"
+                  : "text-[var(--text-light)]"
+              }`}
+            >
+              Ingresar
+            </Link>
           </motion.div>
         )}
 

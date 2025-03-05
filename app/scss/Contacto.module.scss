@@ -1,0 +1,28 @@
+.contactoContainer {
+  @apply flex flex-col items-center justify-center min-h-screen p-4;
+}
+
+.contactoForm {
+  @apply bg-white rounded-lg shadow-md p-8 max-w-md w-full;
+}
+
+.contactoTextarea {
+  @apply w-full p-3 border rounded-md mb-4;
+}
+
+.contactoButton {
+  @apply w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-md;
+}
+
+/* Estilos para el modo oscuro */
+.dark .contactoContainer {
+  @apply bg-black text-gray-300;
+}
+
+.dark .contactoForm {
+  @apply bg-gray-900 text-gray-100;
+}
+
+.dark .contactoTextarea {
+  @apply bg-gray-800 text-gray-200 border-gray-700;
+}

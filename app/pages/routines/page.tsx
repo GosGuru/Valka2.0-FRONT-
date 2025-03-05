@@ -5,7 +5,7 @@ import { getExerciseBlocks } from "../../api/getExerciseBlocks";
 import BlockList from "../../components/BlockList";
 import BlockDetail from "../../components/BlockDetail";
 import PreBlockDetail from "../../components/PreBlockDetail";
-
+import "../../scss/Routine/routine.scss";
 interface Block {
   id: number;
   name: string;
@@ -16,6 +16,7 @@ const RoutinePage: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [step, setStep] = useState("list"); // "list", "pre-detail", "detail"
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulación de autenticación
 
   useEffect(() => {
     document.body.classList.add("hide-footer");
@@ -27,14 +28,25 @@ const RoutinePage: React.FC = () => {
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
-        const data = await getExerciseBlocks();
-        setBlocks(data);
+        // Simulación de verificación de autenticación
+        const userIsLoggedIn = checkIfUserIsLoggedIn();
+        setIsLoggedIn(userIsLoggedIn);
+
+        if (userIsLoggedIn) {
+          const data = await getExerciseBlocks();
+          setBlocks(data);
+        }
       } catch (error) {
         console.error("Error al obtener los bloques:", error);
       }
     };
     fetchBlocks();
   }, []);
+
+  const checkIfUserIsLoggedIn = (): boolean => {
+    // Simula la verificación de autenticación (puedes reemplazar esto con tu lógica real)
+    return !!localStorage.getItem("authToken"); // Ejemplo: verifica si existe un token en localStorage
+  };
 
   const handleSelectBlock = (blockId: number) => {
     const selected = blocks.find((block) => block.id === blockId);
@@ -58,19 +70,50 @@ const RoutinePage: React.FC = () => {
   return (
     <div className="routine-page">
       <AnimatePresence mode="wait">
-        {/* Verifica si no hay bloques */}
-        {blocks.length === 0 && step === "list" && (
+        {/* Estado cuando el usuario no está logueado */}
+        {!isLoggedIn && (
           <motion.div
-            key="empty-state"
+            key="not-logged-in"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-          ></motion.div>
+            className="empty-state"
+          >
+            <div className="logo-container">
+              <img
+                src="/logo.png" // Reemplaza con la ruta de tu logo
+                alt="Logo de Valka"
+                className="logo"
+              />
+            </div>
+            <h2 className="empty-title">¡Bienvenido a Valka!</h2>
+            <p className="empty-description">
+              Por favor, inicia sesión para ver tus rutinas personalizadas.
+            </p>
+          </motion.div>
+        )}
+
+        {/* Estado cuando el usuario está logueado pero no hay bloques */}
+        {isLoggedIn && blocks.length === 0 && step === "list" && (
+          <motion.div
+            key="no-blocks"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="empty-state"
+          >
+            <h2 className="empty-title">No tienes rutinas asignadas</h2>
+            <p className="empty-description">
+              Parece que aún no tienes ejercicios asignados. ¡Contacta a tu
+              entrenador!
+            </p>
+          </motion.div>
         )}
 
         {/* Renderiza la lista de bloques si hay datos */}
-        {step === "list" && blocks.length > 0 && (
+        {isLoggedIn && step === "list" && blocks.length > 0 && (
           <motion.div
             key="list"
             initial={{ opacity: 0 }}
@@ -82,7 +125,7 @@ const RoutinePage: React.FC = () => {
           </motion.div>
         )}
 
-        {step === "pre-detail" && selectedBlock && (
+        {isLoggedIn && step === "pre-detail" && selectedBlock && (
           <motion.div
             key="pre-detail"
             initial={{ x: "-100%", opacity: 0 }}
@@ -98,7 +141,7 @@ const RoutinePage: React.FC = () => {
           </motion.div>
         )}
 
-        {step === "detail" && selectedBlock && (
+        {isLoggedIn && step === "detail" && selectedBlock && (
           <motion.div
             key="detail"
             initial={{ x: "100%", opacity: 0 }}

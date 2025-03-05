@@ -10,7 +10,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ModeToggle } from "./mode-toggle";
 // Icono de lucide-react para menú móvil
 import { Menu } from "lucide-react";
-// Usamos Bebas Neue para el header, resaltando títulos y navegación
+
 import { bebasNeue } from "../ui/fonts";
 
 export default function Header() {
@@ -32,7 +32,7 @@ export default function Header() {
   };
 
   return (
-    <header className={`bg-background shadow-md ${bebasNeue.className} `}>
+    <header className={`bg-background shadow-md  ${bebasNeue.className} `}>
       <div className="mx-auto px-4 py-3 flex items-center justify-between relative">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -48,7 +48,7 @@ export default function Header() {
         {/* Navegación - Desktop */}
         <nav className="hidden md:flex gap-6">
           <Link
-            href="/sobrenosotros"
+            href="../pages/sobrenosotros"
             className="text-foreground hover:text-orange-500 transition-colors duration-300"
           >
             Sobre Nosotros
@@ -60,7 +60,7 @@ export default function Header() {
             Rutinas
           </Link>
           <Link
-            href="/contact"
+            href="../pages/contact"
             className="text-foreground hover:text-orange-500 transition-colors duration-300"
           >
             Contacto
@@ -120,14 +120,16 @@ export default function Header() {
         </div>
 
         {/* Botón de menú para móviles */}
-        <button
-          className="md:hidden p-2"
-          onClick={toggleMenu}
-          aria-label="Abrir menú"
-        >
-          <Menu size={24} className="text-foreground" />
-        </button>
-
+        <div className="flex items-center justify-center gap-3 ">
+          <ModeToggle />
+          <button
+            className="md:hidden p-2"
+            onClick={toggleMenu}
+            aria-label="Abrir menú"
+          >
+            <Menu size={24} className="text-foreground" />
+          </button>
+        </div>
         {/* Overlay para cerrar el menú al hacer clic fuera */}
         {menuOpen && (
           <div
@@ -137,6 +139,7 @@ export default function Header() {
         )}
 
         {/* Menú móvil */}
+
         <nav
           className={`md:hidden absolute top-full right-0 w-full bg-background border-t border-orange-500
     ${
@@ -148,7 +151,7 @@ export default function Header() {
         >
           <div className="px-4 py-4 flex flex-col gap-2">
             <Link
-              href="/sobrenosotros"
+              href="../pages/sobrenosotros"
               className="text-foreground hover:text-orange-500 transition-colors duration-300"
               onClick={closeMenu}
             >
@@ -162,7 +165,7 @@ export default function Header() {
               Rutinas
             </Link>
             <Link
-              href="/contact"
+              href="../pages/contact"
               className="text-foreground hover:text-orange-500 transition-colors duration-300"
               onClick={closeMenu}
             >
@@ -177,9 +180,7 @@ export default function Header() {
             </Link>
 
             {/* Modo oscuro en móviles */}
-            <div className="mt-2">
-              <ModeToggle />
-            </div>
+            <div className="mt-2"></div>
 
             <div className="mt-2">
               {user ? (

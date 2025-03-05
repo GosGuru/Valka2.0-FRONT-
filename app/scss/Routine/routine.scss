@@ -1,0 +1,44 @@
+/* Variables globales */
+$primary-color: #333;
+$secondary-color: #f4f4f4;
+$accent-color: #ff6f61;
+
+/* Estilos generales */
+
+.routine-page {
+  min-height: 100%;
+  color: $primary-color;
+  font-family: var(--font-Open_Sans);
+  padding: 0;
+  
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+
+  .logo-container {
+    margin-bottom: 20px;
+
+    .logo {
+      width: 150px;
+      height: auto;
+    }
+  }
+
+  .empty-title {
+    font-family: var(--font-Bebas_Neue);
+    font-size: 36px;
+    color: $primary-color;
+    margin-bottom: 10px;
+  }
+
+  .empty-description {
+    font-size: 18px;
+    color: $accent-color;
+  }
+}

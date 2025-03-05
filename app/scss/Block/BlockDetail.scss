@@ -68,6 +68,7 @@ body {
       position: absolute;
       left: 0;
       top: -45px;
+      color: #fff;
     }
     .progress-container-series {
       position: absolute;
@@ -281,9 +282,16 @@ body {
       text-align: left;
       font-size: 0.875rem;
       animation: fadeIn 0.4s ease-out forwards;
+      color: #fff;
     }
   }
 
+  .video_avisor{
+    color:  hsl(0, 83%, 65%) !important;
+    text-align: center !important;
+    margin-top:25% !important;
+    font-size: .8rem;
+  }
   .complete-button {
     width: 80vw;
     border-radius: 10px !important;
@@ -306,8 +314,9 @@ body {
     .completed-series {
       font-size: 0.875rem;
       display: flex;
+      
 
-      color: $secondary-color;
+      color: $text-color;
       margin-top: 0.5rem;
     }
 
@@ -338,7 +347,6 @@ body {
 .no-exercises {
   text-align: center;
   color: $secondary-color;
-  margin-top: 2rem;
   animation: fadeIn 0.5s ease-out forwards;
 }
 

@@ -21,12 +21,14 @@ $button: #ccff00;
   flex-direction: column;
   justify-self: center;
   width: 100%;
+
   margin-bottom: 45px;
 
   .containerAcordion {
     max-width: 85dvw !important;
     width: 10px !important;
   }
+
   .container__title {
     font-size: 1.6rem;
     color: $titulo;
@@ -115,4 +117,3 @@ $button: #ccff00;
     height: 1.1rem;
   }
 }
-

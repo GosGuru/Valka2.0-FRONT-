@@ -206,7 +206,10 @@ const BlockDetail = ({ block, onBack }) => {
                             type={videoData.mime}
                           />
                         ) : (
-                          <p>No hay video disponible.</p>
+                          <p className="video_avisor">
+                            ¡Ups! Este ejercicio aún no tiene una demostración.
+                            Consulta al profe para más información.
+                          </p>
                         )}
                       </div>
                       <h3 className={`${bebasNeue.className}`}>
@@ -222,15 +225,16 @@ const BlockDetail = ({ block, onBack }) => {
                       {/* Barra de progreso */}
                       <div className="progress-container">
                         <p
-                          className={`progress-container--p ${Exo2.className}`}
+                          className={`progress-container--p  text-white ${Exo2.className}`}
                         >
                           {progress.toFixed(2)}%
                         </p>
+
                         <Progress value={progress.toFixed(2)} />
                         <br />
                         <p className="progress-container-series">
                           <span
-                            className={`series__realizadas ${lexendDeca.className}`}
+                            className={`series__realizadas text-white ${lexendDeca.className}`}
                           >
                             SERIES REALIZADAS{" "}
                             <Activity className="text-green-600 " />
@@ -309,7 +313,9 @@ const BlockDetail = ({ block, onBack }) => {
                         </Popover>
                       </div>
                       <div className="timer-container">
-                        <span className={`completed-series ${zain.className}`}>
+                        <span
+                          className={`completed-series text-white ${zain.className}`}
+                        >
                           Series Completadas:{" "}
                           {completedSeries[exercise.id] || 0}/
                           {exercise.series || "N/A"}

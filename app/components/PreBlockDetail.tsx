@@ -75,7 +75,7 @@ const PreBlockDetail: React.FC<PreBlockDetailProps> = ({
   if (loading) return <Loading />;
 
   return (
-    <div className="container">
+    <div >
       <div className="container__details">
         <h1 className={`container__title ${lexendDeca.className}`}>
           {block.titulo || "Rutina sin nombre"}

@@ -91,7 +91,7 @@ const PreBlockDetail: React.FC<PreBlockDetailProps> = ({
           </Button>
           {/* Botón para comenzar la rutina con animación de iconos */}
           <Button
-            className="container__goRutina flex items-center space-x-2"
+            className="container__goRutina bg-[#181818]  flex items-center space-x-2"
             onClick={handleComenzarRutina}
           >
             <div className="relative flex items-center justify-center w-6 h-6">
@@ -106,7 +106,7 @@ const PreBlockDetail: React.FC<PreBlockDetailProps> = ({
                 }`}
               />
             </div>
-            <span className={` ${lexendDeca.className}`}>COMENZAR RUTINA</span>
+            <span className={`${lexendDeca.className}`}>COMENZAR RUTINA</span>
           </Button>
         </div>
       </div>

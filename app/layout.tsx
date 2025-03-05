@@ -7,6 +7,7 @@ import { robotoSlab } from "./ui/fonts";
 import { Exo2 } from "./ui/fonts";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "./components/Footer"; // Importa el Footer
+import { ThemeProvider } from "./components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Valka",
@@ -28,13 +29,18 @@ export default function RootLayout({ children, hideFooter }: LayoutProps) {
       <body
         className={`${robotoSlab.className} antialiased bg-background text-foreground dark:bg-background-dark dark:text-foreground-dark`}
       >
-        <AuthProvider>
-          <Header />
-          <main className="min-h-screen">{children}</main>
-          <Toaster />
-          <NavBar />
-          {!hideFooter && <Footer />}
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <Header />
+            <main className="min-h-screen">
+              {children}
+
+            </main>
+              <NavBar />
+            <Toaster />
+            {!hideFooter && <Footer />}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

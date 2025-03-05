@@ -1,9 +1,17 @@
 import React from "react";
 import "../scss/Footer/footer.scss"; // Importa los estilos SCSS
+import {
+  bebasNeue,
+  robotoSlab,
+  openSans,
+  Exo2,
+  zain,
+  lexendDeca,
+} from "../ui/fonts";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className={`footer ${bebasNeue.variable} ${openSans.variable}`}>
       <div className="footer-container">
         {/* Sección de información */}
         <div className="footer-section">
@@ -49,6 +57,7 @@ const Footer = () => {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Facebook"
             >
               <i className="fab fa-facebook"></i>
             </a>
@@ -56,6 +65,7 @@ const Footer = () => {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram"
             >
               <i className="fab fa-instagram"></i>
             </a>
@@ -63,6 +73,7 @@ const Footer = () => {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Twitter"
             >
               <i className="fab fa-twitter"></i>
             </a>
@@ -70,6 +81,7 @@ const Footer = () => {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn"
             >
               <i className="fab fa-linkedin"></i>
             </a>

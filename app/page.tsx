@@ -1,32 +1,101 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { Exo2, zain, lexendDeca, bebasNeue } from "./ui/fonts";
-export default function Home() {
-  return (
-    <div className="bg-[#1a1a1a] text-white min-h-screen flex flex-col justify-between">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center py-20 bg-gradient-to-br from-[#1a1a1a] via-[#333333] to-[#1a1a1a] overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/path/to/your/image.jpg')] bg-cover bg-center opacity-20"></div>
-        <h2
-          className={`text-5xl md:text-6xl font-bold mb-6 text-white relative z-10 ${Exo2.className}`}
-        >
-          Bienvenido a <span className="text-[#f94510]">Valka</span>
-        </h2>
-        <p
-          className={`text-lg md:text-xl text-gray-300 max-w-2xl relative z-10 ${lexendDeca.className}`}
-        >
-          Descubre rutinas personalizadas, desbloquea desafíos y transforma tu
-          vida a través del ejercicio.
-        </p>
+import { PlayIcon } from "lucide-react"; // Importa el ícono de Play
+import { Exo2, lexendDeca } from "./ui/fonts"; // Fuentes personalizadas
+import { useTheme } from "next-themes"; // Para manejar el tema
 
-        <Link href="./pages/routines/">
-          <button
-            className={`mt-5 px-6 py-3 bg-[#f94510] text-lgs text-white rounded-lg  hover:bg-[#f73e00] transition-colors duration-300 relative z-10 ${Exo2.className}`}
+export default function Home() {
+  const { theme } = useTheme(); // Obtén el tema actual
+
+  return (
+    <div
+      className={`min-h-full flex flex-col justify-between ${
+        theme === "dark"
+          ? "bg-[var(--background-dark)]"
+          : "bg-[var(--background-light)]"
+      }`}
+    >
+      {/* Hero Section */}
+      <section
+        className={`relative min-h-screen flex flex-col items-center justify-center text-center py-10 px-4 overflow-hidden`}
+      >
+        {/* Nuevo fondo con patrón geométrico */}
+        <div
+          className={`absolute inset-0 bg-[url('/path/to/subtle-pattern.png')] bg-repeat opacity-20 ${
+            theme === "dark" ? "filter grayscale" : ""
+          }`}
+        ></div>
+
+        {/* Overlay de color sólido */}
+        <div
+          className={`absolute inset-0 ${
+            theme === "dark"
+              ? "bg-[var(--background-dark)]"
+              : "bg-[var(--background-light)]"
+          } mix-blend-multiply`}
+        ></div>
+
+        {/* Contenido Principal */}
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h2
+            className={`text-5xl md:text-7xl font-bold mb-6 ${
+              theme === "dark"
+                ? "text-[var(--text-dark)]"
+                : "text-[var(--text-light)]"
+            } ${Exo2.className}`}
           >
-            Explorar Ejercicios
-          </button>
-        </Link>
+            Bienvenido a{" "}
+            <span className="text-[var(--primary-color)]">Valka</span>
+          </h2>
+          <p
+            className={`text-xl md:text-2xl ${
+              theme === "dark"
+                ? "text-[var(--text-dark)]"
+                : "text-[var(--text-light)]"
+            } mb-10 ${lexendDeca.className}`}
+          >
+            Tu progreso te espera. Inicia sesión para acceder a tu rutina y
+            seguir avanzando hacia tus objetivos.
+          </p>
+          <p
+            className={`text-xs md:text-1xl ${
+              theme === "dark"
+                ? "text-[var(--text-dark)]"
+                : "text-[var(--text-light)]"
+            } mb-10 ${lexendDeca.className}`}
+          >
+            Éxitos en tu rutina!
+          </p>
+
+          {/* Botones de Acción */}
+          <div className="flex flex-col gap-6 justify-center">
+            <Link href="./pages/routines/">
+              <button
+                className={`px-8 py-4 bg-[var(--primary-color)] text-xl text-[var(--text-light)] rounded-lg hover:bg-[var(--primary-hover)] transition-all duration-300 shadow-md ${Exo2.className}`}
+              >
+                Explorar Ejercicios
+              </button>
+            </Link>
+          </div>
+
+          {/* Opción para usuarios registrados */}
+          <p
+            className={`mt-10 text-lg ${
+              theme === "dark"
+                ? "text-[var(--text-dark)]"
+                : "text-[var(--text-light)]"
+            }`}
+          >
+            ¿Ya tienes cuenta?
+            <a
+              href="./join/loginForm"
+              className="text-[var(--primary-color)] underline ml-2 hover:text-[var(--primary-hover)] transition-colors duration-300"
+            >
+              Inicia sesión
+            </a>
+          </p>
+        </div>
       </section>
     </div>
   );

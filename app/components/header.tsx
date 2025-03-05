@@ -1,22 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  IconButton,
-  Collapse,
-  Container,
-  Avatar,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../context/authContext"; // Usa el contexto de autenticación
+import { useAuth } from "../context/authContext";
+// Componentes shadcn
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+// Toggle de modo (adaptado a shadcn)
 import { ModeToggle } from "./mode-toggle";
-import { robotoSlab } from "../ui/fonts";
+// Icono de lucide-react para menú móvil
+import { Menu } from "lucide-react";
+// Usamos Bebas Neue para el header, resaltando títulos y navegación
+import { bebasNeue } from "../ui/fonts";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,298 +19,217 @@ export default function Header() {
   const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    logout(); // Llama a la función `logout` del contexto
-    router.push("/join/loginForm"); // Redirige al usuario a la página de login
+    logout();
+    router.push("/join/loginForm");
   };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: "#1a1a1a",
-        boxShadow: 3,
-        width: "100%",
-        height: "100%",
-        fontFamily: robotoSlab.style.fontFamily,
-      }}
-    >
-      <Container maxWidth="xl">
-        <Toolbar
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          {/* Logo con enlace al inicio */}
-          <Link href="/" passHref>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente al logo
-              }}
-            >
-              <img
-                src="/logo.png"
-                alt="Logo Valka"
-                width={120}
-                height={120}
-                loading="lazy"
-              />
-            </Box>
-          </Link>
+    <header className={`bg-background shadow-md ${bebasNeue.className} `}>
+      <div className="mx-auto px-4 py-3 flex items-center justify-between relative">
+        {/* Logo */}
+        <Link href="/" className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="Logo Valka"
+            width={100}
+            height={100}
+            className="object-contain"
+          />
+        </Link>
 
-          {/* Navegación para pantallas grandes */}
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              gap: 3,
-              flexGrow: 1,
-              justifyContent: "center",
-            }}
+        {/* Navegación - Desktop */}
+        <nav className="hidden md:flex gap-6">
+          <Link
+            href="/sobrenosotros"
+            className="text-foreground hover:text-orange-500 transition-colors duration-300"
           >
-            <Link href="/sobrenosotros" passHref>
-              <Button
-                sx={{
-                  color: "white",
-                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                  "&:hover": { color: "#f94510" },
-                }}
-              >
-                Sobre Nosotros
-              </Button>
-            </Link>
-            <Link href="../pages/routines" passHref>
-              <Button
-                sx={{
-                  color: "white",
-                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                  "&:hover": { color: "#f94510" },
-                }}
-              >
-                Rutinas
-              </Button>
-            </Link>
-            <Link href="/contact" passHref>
-              <Button
-                sx={{
-                  color: "white",
-                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                  "&:hover": { color: "#f94510" },
-                }}
-              >
-                Contacto
-              </Button>
-            </Link>
-            <Link href="/blog" passHref>
-              <Button
-                sx={{
-                  color: "white",
-                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                  "&:hover": { color: "#f94510" },
-                }}
-              >
-                Blog
-              </Button>
-            </Link>
-          </Box>
+            Sobre Nosotros
+          </Link>
+          <Link
+            href="../pages/routines/"
+            className="text-foreground hover:text-orange-500 transition-colors duration-300"
+          >
+            Rutinas
+          </Link>
+          <Link
+            href="/contact"
+            className="text-foreground hover:text-orange-500 transition-colors duration-300"
+          >
+            Contacto
+          </Link>
+          <Link
+            href="/blog"
+            className="text-foreground hover:text-orange-500 transition-colors duration-300"
+          >
+            Blog
+          </Link>
+        </nav>
 
-          {/* Botones condicionales según el estado de autenticación para pantallas grandes */}
+        {/* Modo y acciones de autenticación - Desktop */}
+        <div className="hidden md:flex items-center gap-4">
+          <ModeToggle />
           {user ? (
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <div className="flex items-center gap-4">
               <Button
+                variant="outline"
                 onClick={handleLogout}
-                sx={{
-                  color: "#f94510",
-                  fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                  "&:hover": { color: "#ffffff", backgroundColor: "#f94510" },
-                }}
+                className="text-orange-500 border-orange-500 transition-transform duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
               >
-             
+                Cerrar Sesión
               </Button>
-              {/* Link con avatar al perfil del usuario */}
-              <Link href="/profile" passHref>
-                <Avatar
-                  alt={user.username || "Perfil"}
-                  src={user.fotoPerfil || "/default-avatar.jpg"}
-                  sx={{ width: 40, height: 40 }}
-                />
+              <Link href="/profile">
+                <Avatar>
+                  <AvatarImage
+                    src={user.fotoPerfil || "/default-avatar.jpg"}
+                    alt={user.username || "Perfil"}
+                  />
+                  <AvatarFallback>
+                    {user.username?.charAt(0).toUpperCase() || "P"}
+                  </AvatarFallback>
+                </Avatar>
               </Link>
-            </Box>
+            </div>
           ) : (
-            <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-              <Link href="/join/loginForm" passHref>
+            <div className="flex items-center gap-4">
+              <Link href="/join/loginForm">
                 <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: "#f94510",
-                    color: "#f94510",
-                    fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                    "&:hover": { backgroundColor: "#f94510", color: "white" },
-                    borderRadius: ".5rem",
-                  }}
+                  variant="outline"
+                  className="text-orange-500 border-orange-500 transition-transform duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
                 >
                   Iniciar Sesión
                 </Button>
               </Link>
-              <Link href="/join/registerForm" passHref>
+              <Link href="/join/registerForm">
                 <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#f94510",
-                    fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                    "&:hover": { backgroundColor: "#ffffff", color: "#f94510" },
-                    borderRadius: ".5rem",
-                  }}
+                  variant="default"
+                  className="bg-orange-500 text-white transition-transform duration-300 hover:scale-105 hover:bg-white hover:text-orange-500"
                 >
                   Registrarse
                 </Button>
               </Link>
-            </Box>
+            </div>
           )}
+        </div>
 
-          {/* Botón de menú para pantallas pequeñas */}
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ display: { xs: "flex", md: "none" } }}
-            onClick={toggleMenu}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </Container>
-
-      {/* Menú colapsable para pantallas pequeñas */}
-      <Collapse in={menuOpen} timeout="auto" unmountOnExit>
-        <Box
-          sx={{
-            backgroundColor: "#1a1a1a",
-            display: { xs: "block", md: "none" },
-            padding: 2,
-            borderTop: "1px solid #f94510",
-            boxShadow: 3,
-          }}
+        {/* Botón de menú para móviles */}
+        <button
+          className="md:hidden p-2"
+          onClick={toggleMenu}
+          aria-label="Abrir menú"
         >
-          <Link href="/sobrenosotros" passHref>
-            <Button
-              fullWidth
-              sx={{
-                color: "white",
-                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                "&:hover": { color: "#f94510" },
-              }}
+          <Menu size={24} className="text-foreground" />
+        </button>
+
+        {/* Overlay para cerrar el menú al hacer clic fuera */}
+        {menuOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={closeMenu}
+          ></div>
+        )}
+
+        {/* Menú móvil */}
+        <nav
+          className={`md:hidden absolute top-full right-0 w-full bg-background border-t border-orange-500
+    ${
+      menuOpen
+        ? "translate-y-0 opacity-100"
+        : "hidden opacity-0 pointer-events-none"
+    }
+    transition-all duration-300 ease-in-out z-50`}
+        >
+          <div className="px-4 py-4 flex flex-col gap-2">
+            <Link
+              href="/sobrenosotros"
+              className="text-foreground hover:text-orange-500 transition-colors duration-300"
+              onClick={closeMenu}
             >
               Sobre Nosotros
-            </Button>
-          </Link>
-          <Link href="../pages/routines" passHref>
-            <Button
-              fullWidth
-              sx={{
-                color: "white",
-                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                "&:hover": { color: "#f94510" },
-              }}
+            </Link>
+            <Link
+              href="../pages/routines/"
+              className="text-foreground hover:text-orange-500 transition-colors duration-300"
+              onClick={closeMenu}
             >
               Rutinas
-            </Button>
-          </Link>
-          <Link href="/contact" passHref>
-            <Button
-              fullWidth
-              sx={{
-                color: "white",
-                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                "&:hover": { color: "#f94510" },
-              }}
+            </Link>
+            <Link
+              href="/contact"
+              className="text-foreground hover:text-orange-500 transition-colors duration-300"
+              onClick={closeMenu}
             >
               Contacto
-            </Button>
-          </Link>
-          <Link href="/blog" passHref>
-            <Button
-              fullWidth
-              sx={{
-                color: "white",
-                fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                "&:hover": { color: "#f94510" },
-              }}
+            </Link>
+            <Link
+              href="/blog"
+              className="text-foreground hover:text-orange-500 transition-colors duration-300"
+              onClick={closeMenu}
             >
               Blog
-            </Button>
-          </Link>
+            </Link>
 
-          {/* Botones condicionales según el estado de autenticación para pantallas pequeñas */}
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 2 }}>
-            {user ? (
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Button
-                  fullWidth
-                  onClick={handleLogout}
-                  sx={{
-                    color: "#f94510",
-                    fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                    "&:hover": { color: "#ffffff", backgroundColor: "#f94510" },
-                  }}
-                >
-                  Cerrar Sesión
-                </Button>
-                {/* Link con avatar al perfil en versión móvil */}
-                <Link href="../profile" passHref>
-                  <Avatar
-                    alt={user.username || "Perfil"}
-                    src={user.fotoPerfil || "/default-avatar.png"}
-                    sx={{ width: 40, height: 40 }}
-                  />
-                </Link>
-              </Box>
-            ) : (
-              <>
-                <Link href="/join/loginForm" passHref>
+            {/* Modo oscuro en móviles */}
+            <div className="mt-2">
+              <ModeToggle />
+            </div>
+
+            <div className="mt-2">
+              {user ? (
+                <div className="flex flex-col gap-2">
                   <Button
-                    fullWidth
-                    variant="outlined"
-                    sx={{
-                      borderColor: "#f94510",
-                      color: "#f94510",
-                      fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                      "&:hover": { backgroundColor: "#f94510", color: "white" },
-                      borderRadius: ".5rem",
-                    }}
+                    variant="outline"
+                    onClick={handleLogout}
+                    className="w-full text-orange-500 border-orange-500 transition-transform duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
                   >
-                    Iniciar Sesión
+                    Cerrar Sesión
                   </Button>
-                </Link>
-                <Link href="/join/registerForm" passHref>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "#f94510",
-                      fontFamily: robotoSlab.style.fontFamily, // Aplica la fuente aquí
-                      "&:hover": {
-                        backgroundColor: "#ffffff",
-                        color: "#f94510",
-                      },
-                      borderRadius: ".5rem",
-                    }}
-                  >
-                    Registrarse
-                  </Button>
-                </Link>
-              </>
-            )}
-          </Box>
-        </Box>
-      </Collapse>
-    </AppBar>
+                  <Link href="/profile">
+                    <div className="flex items-center gap-2">
+                      <Avatar>
+                        <AvatarImage
+                          src={user.fotoPerfil || "/default-avatar.jpg"}
+                          alt={user.username || "Perfil"}
+                        />
+                        <AvatarFallback>
+                          {user.username?.charAt(0).toUpperCase() || "P"}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-foreground">Perfil</span>
+                    </div>
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <Link href="/join/loginForm">
+                    <Button
+                      variant="outline"
+                      className="w-full text-orange-500 border-orange-500 transition-transform duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
+                    >
+                      Iniciar Sesión
+                    </Button>
+                  </Link>
+                  <Link href="/join/registerForm">
+                    <Button
+                      variant="default"
+                      className="w-full bg-orange-500 text-white transition-transform duration-300 hover:scale-105 hover:bg-white hover:text-orange-500"
+                    >
+                      Registrarse
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
   );
 }

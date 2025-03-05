@@ -1,3 +1,5 @@
+/* global.scss */
+
 /* Importación de Tailwind */
 @tailwind base;
 @tailwind components;
@@ -14,8 +16,28 @@ html,
   overflow-x: hidden !important;
 }
 
-/* Variables globales para light y dark mode, basadas en el sistema de color HSL */
+/* Variables globales para light y dark mode */
 :root {
+  /* Colores principales */
+  --primary-color: #f97316;
+  --primary-hover: #ea7316;
+  --background-dark: #1a1a1a;
+  --background-light: #f5f5f5;
+  --text-dark: #ffffff;
+  --text-light: #1a1a1a;
+
+  /* Gradientes */
+  --gradient-dark: linear-gradient(to bottom right, #ff6f00, #333333, #1a1a1a);
+  --gradient-light: linear-gradient(to bottom right, #ff6f00, #f0f0f0, #ffffff);
+
+  /* Transiciones */
+  --transition-default: all 0.3s ease-in-out;
+
+  /* Tailwind-inspired variables */
+  /* Colores adicionales */
+--success-color: #28a745; /* Verde para éxito */
+--error-color: #dc3545; /* Rojo para errores */
+--input: #333333; /* Color de fondo para inputs en dark mode */
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;
   --card: 0 0% 100%;
@@ -71,8 +93,12 @@ html,
   --chart-5: 340 75% 55%;
 }
 
+/* Estilos globales */
 body {
-  background-color: #000;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  transition: background-color var(--transition-default),
+    color var(--transition-default);
 }
 
 /* Aplicación de Tailwind junto con variables */
@@ -80,12 +106,6 @@ body {
   border-color: hsl(var(--border));
 }
 
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-}
-
-/* Estilos para el card */
 .card {
   background-color: hsl(var(--card));
   color: hsl(var(--card-foreground));
@@ -97,8 +117,63 @@ body {
   color: hsl(var(--card-foreground));
 }
 
-@layer base {
+/* Botones */
+button,
+.button {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background-color var(--transition-default),
+    transform var(--transition-default);
 }
+
+button:hover,
+.button:hover {
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+/* Enlaces */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-default);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* Gradientes */
+.gradient-dark {
+  background: var(--gradient-dark);
+}
+
+.gradient-light {
+  background: var(--gradient-light);
+}
+
+/* Transiciones */
+.transition-default {
+  transition: var(--transition-default);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  button,
+  .button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@layer base {}
 
 @layer base {
   * {

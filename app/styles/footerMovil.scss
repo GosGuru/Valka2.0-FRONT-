@@ -2,6 +2,10 @@
   display: none;
 }
 
+.toggle-button {
+  display: none;
+}
+
 @media screen and (max-width: 468px) {
   .nav {
     position: fixed;

@@ -1,118 +1,91 @@
 /* Variables globales */
-$primary-color: #f8450d; // Naranja vibrante
-$secondary-color: #d0cccc; // Gris claro
-$text-color: #ffffff; // Texto blanco
-$background-dark: #1a1a1a; // Fondo oscuro
-$card-background: #2a2a2a; // Fondo de las tarjetas
 
+$primary-color: #131313;
+$secondary-color: #f4f4f4;
+$accent-color: #f97316;
+$font-family-primary: var(--font-Bebas_Neue);
+$font-family-secondary: var(--font-Open_Sans);
+
+/* Estilos generales del footer */
 .footer {
-  background-color: $background-dark;
-  color: $text-color;
-  font-family: --font-Exo_2;
-  padding: 1rem 0.5rem;
-  position: static;
-  width: 100%;
-  margin-top: 5%;
+  background-color: hsl(var(--background));
+  color: $secondary-color;
+  font-family: $font-family-secondary;
+  padding: 40px 20px;
 }
 
-/* Contenedor principal */
 .footer-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-
-  /* Desktop: cambia a diseño horizontal */
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
 }
 
-/* Cada sección del footer */
 .footer-section {
-  text-align: left; // Mobile-first: texto centrado
-  flex: 1; // Desktop: cada sección ocupa un espacio proporcional
-  min-width: 200px; // Evita que las secciones se colapsen en desktop
+  flex: 1 1 200px;
+  margin-bottom: 20px;
 
-  /* Títulos de las secciones */
   .footer-title {
-    font-size: 1.55rem;
-    font-weight: 700;
-    margin-bottom: 0.7rem;
+    font-family: $font-family-primary;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: $accent-color;
   }
 
-  /* Descripción de la sección "Sobre Nosotros" */
   .footer-description {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    font-weight: 200;
+    font-size: 14px;
+    line-height: 1.6;
   }
 
-  /* Lista de enlaces rápidos */
   .footer-links {
-    list-style: inside;
+    list-style: none;
     padding: 0;
-    color: #d0cccc;
 
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 10px;
 
       a {
         color: $secondary-color;
         text-decoration: none;
-        transition: color 0.2s ease-in-out;
+        transition: color 0.3s ease;
 
         &:hover {
-          color: $primary-color;
+          color: $accent-color;
         }
       }
     }
   }
 
-  /* Información de contacto */
   .footer-contact {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 14px;
+
+    span {
+      display: block;
+      margin-top: 10px;
+      color: $accent-color;
+    }
   }
 
-  /* Iconos de redes sociales */
   .social-icons {
     display: flex;
-    justify-content: stretch;
-    align-items: center;
-    gap: 2.5rem;
+    gap: 15px;
 
     a {
-      color: $text-color;
-      font-size: 1.3rem;
-      transition: color 0.2s ease-in-out;
+      color: $secondary-color;
+      font-size: 20px;
+      transition: color 0.3s ease;
 
       &:hover {
-        color: $primary-color;
+        color: $accent-color;
       }
     }
   }
 }
 
-/* Derechos de autor */
 .footer-bottom {
   text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
+  margin-top: 20px;
+  font-size: 14px;
   color: $secondary-color;
-}
-
-/* Responsive design */
-@media (min-width: 768px) {
-  .footer-section {
-    text-align: left; // Desktop: alinea texto a la izquierda
-  }
-
-  .social-icons {
-    justify-content: flex-start; // Desktop: alinea íconos a la izquierda
-  }
 }

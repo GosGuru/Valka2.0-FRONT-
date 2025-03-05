@@ -2,14 +2,24 @@ import React from "react";
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import "../scss/Block/blockList.scss";
-// Importamos las fuentes necesarias
 import { bebasNeue, robotoSlab, zain } from "../ui/fonts"; // Ajusta la ruta
 
-const BlockList = ({ blocks, onSelectBlock }) => {
+// Definimos la interfaz para los bloques
+interface Block {
+  id: number;
+  titulo?: string;
+  notes?: string;
+}
+
+// Definimos la interfaz para las props del componente
+interface BlockListProps {
+  blocks: Block[];
+  onSelectBlock: (id: number) => void;
+}
+
+const BlockList: React.FC<BlockListProps> = ({ blocks, onSelectBlock }) => {
   return (
     <div className={`container__list ${zain.className}`}>
-      {" "}
-      {/* Fuente base para todo el contenedor */}
       <div className="block-list">
         {blocks.map((block) => (
           <Card
@@ -30,13 +40,11 @@ const BlockList = ({ blocks, onSelectBlock }) => {
             <div className="relative w-full h-full">
               <div className="relative z-20">
                 <CardHeader>
-                  {/* Título con Bebas Neue - ideal para títulos impactantes */}
                   <CardTitle className={`block-title ${bebasNeue.className}`}>
                     {block.titulo || "Bloque Sin Nombre"}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {/* Notas con Open Sans - buena para textos largos */}
                   <p className={`block-notes ${zain.className}`}>
                     {block.notes || "Sin notas"}
                   </p>

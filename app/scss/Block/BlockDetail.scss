@@ -1,10 +1,11 @@
 /* Variables globales */
-$primary-color: #f8450d;
-$secondary-color: #d0cccc;
+
+$primary-color: #f97316;
+$secondary-color: #ea7316;
 $text-color: #ffffff;
 $hover-color: #ff6f61;
 $disabled-color: #555555;
-$titulos: #ff6f61;
+$titulos: #f97316;
 $background-dark: #1a1a1a;
 $card-background: #2a2a2a;
 
@@ -50,6 +51,7 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
     gap: 5px;
   }
 
@@ -313,7 +315,7 @@ body {
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
       border-radius: 0.25rem;
-      background-color: $primary-color;
+
       color: $text-color;
       transition: background-color 0.2s ease-in-out, transform 0.2s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);

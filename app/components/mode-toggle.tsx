@@ -1,20 +1,17 @@
-// components/mode-toggle.tsx
 "use client";
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { MoonIcon, SunIcon } from "lucide-react";
-import { useTheme } from "./themeContext";
 
-export const ModeToggle = () => {
-  const { theme, toggleTheme } = useTheme();
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+
+export function ModeToggle() {
+  const { theme, setTheme } = useTheme();
 
   return (
-    <Button variant="outline" size="icon" onClick={toggleTheme}>
-      {theme === "light" ? (
-        <MoonIcon className="h-5 w-5" />
-      ) : (
-        <SunIcon className="h-5 w-5" />
-      )}
+    <Button
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="p-2"
+    >
+      {theme === "dark" ? "Light Mode" : "Dark Mode"}
     </Button>
   );
-};
+}

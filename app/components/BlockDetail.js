@@ -244,7 +244,7 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Repeat2 />
-                            <PopoverTrigger>
+                            <PopoverTrigger className="bg-transparent text-white p-2 pl-1">
                               Reps: {exercise.repeticiones || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
@@ -261,7 +261,7 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Weight />
-                            <PopoverTrigger>
+                            <PopoverTrigger className="bg-transparent text-white p-2 pl-1">
                               {" "}
                               Carga: {exercise.carga || "N/A"}
                             </PopoverTrigger>
@@ -279,7 +279,7 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <TimerReset />
-                            <PopoverTrigger>
+                            <PopoverTrigger className="bg-transparent text-white p-2 pl-0">
                               Descanso: {exercise.descanso || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
@@ -296,7 +296,7 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Anchor />
-                            <PopoverTrigger>
+                            <PopoverTrigger className="bg-transparent text-white p-2 pl-1">
                               Series: {exercise.series || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent

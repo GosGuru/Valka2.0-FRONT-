@@ -56,12 +56,9 @@ export default function Login() {
         setIsSuccess(true);
         setTimeout(() => {
           router.push("/");
-        }, 2000);
+        }, 200);
       } else {
-        setMessage(
-          (data as ErrorResponse).error.message ||
-            "Credenciales incorrectas. Intenta de nuevo."
-        );
+        setMessage("Credenciales incorrectas. Intenta de nuevo.");
       }
     } catch (error) {
       setMessage("Error del servidor. Por favor, intenta más tarde.");
@@ -71,7 +68,9 @@ export default function Login() {
   return (
     <div
       className={`flex items-start justify-center min-h-screen pt-20 ${
-        theme === "dark" ? "bg-[hsl(var(--background))]" : "bg-[hsl(var(--background))]"
+        theme === "dark"
+          ? "bg-[hsl(var(--background))]"
+          : "bg-[hsl(var(--background))]"
       } text-[hsl(var(--foreground))] relative overflow-hidden`}
     >
       {/* Fondo con patrón geométrico */}
@@ -87,15 +86,15 @@ export default function Login() {
         className={`relative z-10 p-8 rounded-lg shadow-lg w-full max-w-md bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))] pt-0 mt-[-40px]`}
       >
         <h2
-          className={`text-3xl md:text-4xl font-bold text-center mb-4 ${
-            bebasNeue.className
-          } text-[var(--primary-color)]`}
+          className={`text-3xl md:text-4xl font-bold text-center mb-4 ${bebasNeue.className} text-[var(--primary-color)]`}
         >
           Iniciar Sesión
         </h2>
         <p
           className={`text-lg text-center mb-6 ${lexendDeca.className} ${
-            theme === "dark" ? "text-[hsl(var(--text-dark))]" : "text-[hsl(var(--text-light))]"
+            theme === "dark"
+              ? "text-[hsl(var(--text-dark))]"
+              : "text-[hsl(var(--text-light))]"
           }`}
         >
           Accede a tu cuenta y continúa tu progreso.

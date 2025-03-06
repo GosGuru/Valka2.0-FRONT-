@@ -47,7 +47,8 @@ const BlockDetail = ({ block, onBack }) => {
   const [exerciseVideos, setExerciseVideos] = useState({});
   const [completedSeries, setCompletedSeries] = useState({});
   const [progress, setProgress] = useState(0);
-  const [totalCompletedSeries, setTotalCompletedSeries] = useState(0); // Nuevo estado para el total de series completadas
+  const [totalCompletedSeries, setTotalCompletedSeries] = useState(0);
+  const [isPlaying, setIsVideoPlaying] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -79,15 +80,38 @@ const BlockDetail = ({ block, onBack }) => {
     toast("Las series han sido reseteadas.");
   };
 
-  const handleCompleteSeries = (exerciseId) => {
-    setCompletedSeries((prev) => {
-      const updatedSeries = {
-        ...prev,
-        [exerciseId]: (prev[exerciseId] || 0) + 1,
-      };
-      return updatedSeries;
-    });
+  // Función para reproducir sonido al completar una serie
+  const playSound = () => {
+    const audio = new Audio("/sounds/success.mp3");
+    audio.play();
   };
+
+  // Función para activar vibración en dispositivos móviles
+  const triggerVibration = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(200); // vibración de 200ms
+    }
+  };
+
+const handleCompleteSeries = (exerciseId) => {
+  setCompletedSeries((prev) => {
+    const updatedSeries = {
+      ...prev,
+      [exerciseId]: (prev[exerciseId] || 0) + 1,
+    };
+
+    // Add a small delay before playing sound and vibration
+    setTimeout(() => {
+      playSound();
+      // Add a small delay between sound and vibration for better feedback
+      setTimeout(() => {
+        triggerVibration();
+      }, 100);
+    }, 200);
+
+    return updatedSeries;
+  });
+};
 
   const parseSeriesValue = (seriesValue) => {
     if (typeof seriesValue === "string") {
@@ -136,55 +160,52 @@ const BlockDetail = ({ block, onBack }) => {
   }, [completedSeries, exercises]);
 
   const handleCarouselChange = (index) => {
-    setCurrentExerciseIndex(index);
+    // Si usas un estado para el índice actual, asegúrate de declararlo, ej:
+    // setCurrentExerciseIndex(index);
     setProgress(calculateProgressPercentage());
   };
 
   return (
     <div className="block-detail">
-      {/* Botón para volver */}
-
-      {/* <h2>{block.titulo || "Bloque sin nombre"}</h2>
-      <p>{block.notes || "Sin notas"}</p> */}
+      <div className="container__tools">
+        <button className="back-button" onClick={onBack}>
+          <ArrowBack />
+        </button>
+        {/* Cuadro de diálogo de confirmación para resetear series */}
+        <AlertDialog className="rounded-lg border-[#c5512d]">
+          <AlertDialogTrigger asChild>
+            <button className={`reset-button ${Exo2.className}`}>
+              Resetear Series
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className="alert-dialog">
+            <AlertDialogHeader>
+              <AlertDialogTitle className={`${zain.className}`}>
+                ¿Estás seguro?
+              </AlertDialogTitle>
+              <AlertDialogDescription className={`${lexendDeca.className}`}>
+                Esta acción no se puede deshacer. Se reiniciarán todas las
+                series completadas.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel
+                className={`alert-dialog-cancel ${lexendDeca.className}`}
+              >
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                className={`alert-dialog-action ${lexendDeca.className}`}
+                onClick={resetearDia}
+              >
+                Continuar
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
       {exercises.length > 0 ? (
         <div>
-          <div className="container__tools">
-            <button className="back-button" onClick={onBack}>
-              <ArrowBack />
-            </button>
-            {/* Cuadro de diálogo de confirmación para resetear series */}
-            <AlertDialog className="rounded-lg border-[#c5512d]">
-              <AlertDialogTrigger asChild>
-                <button className={`reset-button ${Exo2.className}`}>
-                  Resetear Series
-                </button>
-              </AlertDialogTrigger>
-              <AlertDialogContent className="alert-dialog">
-                <AlertDialogHeader>
-                  <AlertDialogTitle className={`${zain.className}`}>
-                    ¿Estás seguro?
-                  </AlertDialogTitle>
-                  <AlertDialogDescription className={`${lexendDeca.className}`}>
-                    Esta acción no se puede deshacer. Se reiniciarán todas las
-                    series completadas.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel
-                    className={`alert-dialog-cancel ${lexendDeca.className}`}
-                  >
-                    Cancelar
-                  </AlertDialogCancel>
-                  <AlertDialogAction
-                    className={`alert-dialog-action ${lexendDeca.className}`}
-                    onClick={resetearDia}
-                  >
-                    Continuar
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </div>
           <Carousel
             className="carousel-container"
             opts={{
@@ -192,27 +213,26 @@ const BlockDetail = ({ block, onBack }) => {
             }}
           >
             <CarouselContent>
-              {exercises.map((exercise, index) => {
+              {exercises.map((exercise) => {
                 const isCompleted =
                   (completedSeries[exercise.id] || 0) >= exercise.series;
                 const videoData = exerciseVideos[String(exercise.id)];
                 return (
                   <CarouselItem key={exercise.id}>
                     <div className="exercise-item">
-                      <div className="video-container">
-                        {videoData?.url ? (
-                          <CustomVideoPlayer
-                            src={videoData.url}
-                            type={videoData.mime}
-                          />
-                        ) : (
-                          <p className="video_avisor">
-                            ¡Ups! Este ejercicio aún no tiene una demostración.
-                            Consulta al profe para más información.
-                          </p>
-                        )}
-                      </div>
-                      <h3 className={`${bebasNeue.className}`}>
+                      {videoData?.url ? (
+                        <CustomVideoPlayer
+                          src={videoData.url}
+                          type={videoData.mime}
+                        />
+                      ) : (
+                        <p className="video_avisor">
+                          ¡Ups! Este ejercicio aún no tiene una demostración.
+                          Consulta al profe para más información.
+                        </p>
+                      )}
+
+                      <h3 className={`titulo__nombre`}>
                         {exercise.nombre || "Ejercicio sin nombre"}
                       </h3>
                       <p
@@ -225,11 +245,10 @@ const BlockDetail = ({ block, onBack }) => {
                       {/* Barra de progreso */}
                       <div className="progress-container">
                         <p
-                          className={`progress-container--p  text-white ${Exo2.className}`}
+                          className={`progress-container--p text-white ${Exo2.className}`}
                         >
                           {progress.toFixed(2)}%
                         </p>
-
                         <Progress value={progress.toFixed(2)} />
                         <br />
                         <p className="progress-container-series">
@@ -237,11 +256,11 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`series__realizadas text-white ${lexendDeca.className}`}
                           >
                             SERIES REALIZADAS{" "}
-                            <Activity className="text-green-600 " />
+                            <Activity className="text-green-600" />{" "}
                             {totalCompletedSeries}
                           </span>
                         </p>
-                      </div>{" "}
+                      </div>
                       <div className="exercise-details">
                         <Popover>
                           <span
@@ -259,14 +278,12 @@ const BlockDetail = ({ block, onBack }) => {
                             </PopoverContent>
                           </span>
                         </Popover>
-
                         <Popover>
                           <span
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Weight />
                             <PopoverTrigger className="bg-transparent text-white p-2 pl-1">
-                              {" "}
                               Carga: {exercise.carga || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
@@ -277,7 +294,6 @@ const BlockDetail = ({ block, onBack }) => {
                             </PopoverContent>
                           </span>
                         </Popover>
-
                         <Popover>
                           <span
                             className={`container__details-ejercicios ${Exo2.className}`}
@@ -294,7 +310,6 @@ const BlockDetail = ({ block, onBack }) => {
                             </PopoverContent>
                           </span>
                         </Popover>
-
                         <Popover>
                           <span
                             className={`container__details-ejercicios ${Exo2.className}`}

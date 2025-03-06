@@ -35,9 +35,9 @@ html,
 
   /* Tailwind-inspired variables */
   /* Colores adicionales */
---success-color: #28a745; /* Verde para éxito */
---error-color: #dc3545; /* Rojo para errores */
---input: #333333; /* Color de fondo para inputs en dark mode */
+  --success-color: #28a745; /* Verde para éxito */
+  --error-color: #dc3545; /* Rojo para errores */
+  --input: #333333; /* Color de fondo para inputs en dark mode */
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;
   --card: 0 0% 100%;
@@ -118,7 +118,7 @@ body {
 }
 
 /* Botones */
-button,
+/* button,
 .button {
   background-color: var(--primary-color);
   color: var(--text-light);
@@ -128,16 +128,10 @@ button,
   cursor: pointer;
   transition: background-color var(--transition-default),
     transform var(--transition-default);
-}
-
-button:hover,
-.button:hover {
-  /* background-color: var(--primary-hover);
-  transform: scale(1.05); */
-}
+} */
 
 /* Enlaces */
-a {
+/* a {
   color: var(--primary-color);
   text-decoration: none;
   transition: color var(--transition-default);
@@ -145,7 +139,7 @@ a {
 
 a:hover {
   color: var(--primary-hover);
-}
+} */
 
 /* Gradientes */
 .gradient-dark {
@@ -173,7 +167,8 @@ a:hover {
   }
 }
 
-@layer base {}
+@layer base {
+}
 
 @layer base {
   * {

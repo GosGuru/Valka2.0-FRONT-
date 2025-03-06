@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Sequel Sans";
+  src: url("/fonts/Sequel_Sans/SequelSans-Regular.woff2") format("woff2"),
+    url("/fonts/Sequel_Sans/SequelSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sequel Sans";
+  src: url("/fonts/Sequel_Sans/SequelSans-Bold.woff2") format("woff2"),
+    url("/fonts/Sequel_Sans/SequelSans-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Variables globales */
 
 $primary-color: #f97316;
@@ -242,25 +260,17 @@ body {
       box-shadow: 0 4px 10px rgba(117, 117, 117, 0.3);
     }
   }
-  /* Video */
   .video-container {
-    video {
-      width: 100%;
-      border-radius: 0.5rem;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-
-    p {
-      color: $secondary-color;
-      text-align: center;
-      margin-top: 0.5rem;
-    }
+    height: 180px;
+    transition: all 0.5s ease;
+    animation: Smooth;
+    overflow: hidden;
   }
+
+  .video-container.expanded {
+    height: 85dvh !important;
+  }
+
   .series__realizadas {
     display: flex;
     align-items: center;
@@ -286,11 +296,11 @@ body {
     }
   }
 
-  .video_avisor{
-    color:  hsl(0, 83%, 65%) !important;
+  .video_avisor {
+    color: hsl(0, 83%, 65%) !important;
     text-align: center !important;
-    margin-top:25% !important;
-    font-size: .8rem;
+    margin-top: 25% !important;
+    font-size: 0.8rem;
   }
   .complete-button {
     width: 80vw;
@@ -314,7 +324,6 @@ body {
     .completed-series {
       font-size: 0.875rem;
       display: flex;
-      
 
       color: $text-color;
       margin-top: 0.5rem;
@@ -452,8 +461,11 @@ body {
   .exercise-item {
     padding: 0.8rem 0.3rem;
 
-    h3 {
-      font-size: 1.6rem;
+    h3.titulo__nombre {
+  font-family: "Sequel Sans";
+  font-size: 1.4rem !important;
+
+
     }
 
     .exercise-details {
@@ -486,3 +498,4 @@ body {
 .hide-footer .footer {
   display: none;
 }
+

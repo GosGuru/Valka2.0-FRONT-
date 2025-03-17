@@ -14,6 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Activity, Repeat2, Weight, TimerReset, Anchor } from "lucide-react";
+import { RefreshCw } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -93,25 +94,17 @@ const BlockDetail = ({ block, onBack }) => {
     }
   };
 
-const handleCompleteSeries = (exerciseId) => {
-  setCompletedSeries((prev) => {
-    const updatedSeries = {
-      ...prev,
-      [exerciseId]: (prev[exerciseId] || 0) + 1,
-    };
+  const handleCompleteSeries = (exerciseId) => {
+    setCompletedSeries((prev) => {
+      const updatedSeries = {
+        ...prev,
+        [exerciseId]: (prev[exerciseId] || 0) + 1,
+      };
 
-    // Add a small delay before playing sound and vibration
-    setTimeout(() => {
-      playSound();
-      // Add a small delay between sound and vibration for better feedback
-      setTimeout(() => {
-        triggerVibration();
-      }, 100);
-    }, 200);
 
-    return updatedSeries;
-  });
-};
+      return updatedSeries;
+    });
+  };
 
   const parseSeriesValue = (seriesValue) => {
     if (typeof seriesValue === "string") {
@@ -175,7 +168,7 @@ const handleCompleteSeries = (exerciseId) => {
         <AlertDialog className="rounded-lg border-[#c5512d]">
           <AlertDialogTrigger asChild>
             <button className={`reset-button ${Exo2.className}`}>
-              Resetear Series
+              <RefreshCw />
             </button>
           </AlertDialogTrigger>
           <AlertDialogContent className="alert-dialog">
@@ -235,14 +228,16 @@ const handleCompleteSeries = (exerciseId) => {
                       <h3 className={`titulo__nombre`}>
                         {exercise.nombre || "Ejercicio sin nombre"}
                       </h3>
-                      <p
+                
+                      
+                      {/* <p
                         className={`difficulty ${zain.className} ${
                           exercise.dificultad?.toLowerCase() || "desconocida"
                         }`}
                       >
                         Dificultad: {exercise.dificultad || "No asignada"}
                       </p>
-                      {/* Barra de progreso */}
+            
                       <div className="progress-container">
                         <p
                           className={`progress-container--p text-white ${Exo2.className}`}
@@ -260,7 +255,7 @@ const handleCompleteSeries = (exerciseId) => {
                             {totalCompletedSeries}
                           </span>
                         </p>
-                      </div>
+                      </div> */}
                       <div className="exercise-details">
                         <Popover>
                           <span
@@ -366,7 +361,7 @@ const handleCompleteSeries = (exerciseId) => {
         <p className="no-exercises">Este bloque no tiene ejercicios.</p>
       )}
     </div>
-  );
+     );
 };
 
 export default BlockDetail;

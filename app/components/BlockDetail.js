@@ -222,13 +222,13 @@ const BlockDetail = ({ block, onBack }) => {
                           type={videoData.mime}
                         />
                       ) : (
-                        <p className="video_avisor">
+                        <p className={`video_avisor ${lexendDeca.className}`}>
                           ¡Ups! Este ejercicio aún no tiene una demostración.
                           Consulta al profe para más información.
                         </p>
                       )}
 
-                      <h3 className={`titulo__nombre`}>
+                      <h3 className={`titulo__nombre ${Exo2.className}`}>
                         {exercise.nombre || "Ejercicio sin nombre"}
                       </h3>
 
@@ -265,12 +265,12 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Repeat2 />
-                            <PopoverTrigger className="bg-transparent  p-2 pl-1">
+                            <PopoverTrigger className={`bg-transparent  p-2 pl-1 ${Exo2.className}`}>
                               Reps: {exercise.repeticiones || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
                               side="top"
-                              className="bg-[#272727] text-xs text-center py-2 px-7 w-fit"
+                              className={`bg-[#272727] text-xs text-center py-2 px-7 w-fit ${Exo2.className}`}
                             >
                               Repeticiones
                             </PopoverContent>
@@ -302,7 +302,7 @@ const BlockDetail = ({ block, onBack }) => {
                             </PopoverTrigger>
                             <PopoverContent
                               side="bottom"
-                              className="bg-[#272727]  text-xs text-center py-2 px-7 w-fit"
+                              className={`bg-[#272727]  text-xs text-center py-2 px-7 w-fit ${Exo2.className}`}
                             >
                               Tiempo de descanso
                             </PopoverContent>
@@ -318,7 +318,7 @@ const BlockDetail = ({ block, onBack }) => {
                             </PopoverTrigger>
                             <PopoverContent
                               side="bottom"
-                              className="bg-[#272727]  text-xs text-center py-2 px-7 w-fit"
+                              className={`bg-[#272727]  text-xs text-center py-2 px-7 w-fit ${Exo2.className}`}
                             >
                               Número de series
                             </PopoverContent>
@@ -341,7 +341,7 @@ const BlockDetail = ({ block, onBack }) => {
                               (completedSeries[exercise.id] || 0) >=
                               exercise.series
                             }
-                            className={`complete-button ${Exo2.className}`}
+                            className={`complete-button ${lexendDeca.className}`}
                           >
                             Completar Serie
                           </button>

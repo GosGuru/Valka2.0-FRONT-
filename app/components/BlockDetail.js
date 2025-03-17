@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Separator } from "@/components/ui/separator";
-
+import { useTheme } from "next-themes";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -44,6 +44,7 @@ import {
 import { Exo2, zain, lexendDeca, bebasNeue } from "../ui/fonts";
 
 const BlockDetail = ({ block, onBack }) => {
+  const { theme } = useTheme();
   const [exercises, setExercises] = useState([]);
   const [exerciseVideos, setExerciseVideos] = useState({});
   const [completedSeries, setCompletedSeries] = useState({});
@@ -134,6 +135,8 @@ const BlockDetail = ({ block, onBack }) => {
     return totalSeries === 0 ? 0 : (totalCompleted / totalSeries) * 100;
   };
 
+
+
   const calculateTotalCompletedSeries = () => {
     let totalCompleted = 0;
     exercises.forEach((exercise) => {
@@ -159,7 +162,7 @@ const BlockDetail = ({ block, onBack }) => {
   };
 
   return (
-    <div className="block-detail">
+    <div className={`block-detail ${theme === "dark" ? "dark" : ""}`}>
       <div className="container__tools">
         <button className="back-button" onClick={onBack}>
           <ArrowBack />
@@ -228,8 +231,8 @@ const BlockDetail = ({ block, onBack }) => {
                       <h3 className={`titulo__nombre`}>
                         {exercise.nombre || "Ejercicio sin nombre"}
                       </h3>
-                
-                      
+
+
                       {/* <p
                         className={`difficulty ${zain.className} ${
                           exercise.dificultad?.toLowerCase() || "desconocida"
@@ -262,12 +265,12 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Repeat2 />
-                            <PopoverTrigger className="bg-transparent text-white p-2 pl-1">
+                            <PopoverTrigger className="bg-transparent  p-2 pl-1">
                               Reps: {exercise.repeticiones || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
                               side="top"
-                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                              className="bg-[#272727] text-xs text-center py-2 px-7 w-fit"
                             >
                               Repeticiones
                             </PopoverContent>
@@ -278,12 +281,12 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Weight />
-                            <PopoverTrigger className="bg-transparent text-white p-2 pl-1">
+                            <PopoverTrigger className="bg-transparent p-2 pl-1">
                               Carga: {exercise.carga || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
                               side="top"
-                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                              className="bg-[#272727]  text-xs text-center py-2 px-7 w-fit"
                             >
                               Peso complementario
                             </PopoverContent>
@@ -294,12 +297,12 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <TimerReset />
-                            <PopoverTrigger className="bg-transparent text-white p-2 pl-0">
+                            <PopoverTrigger className="bg-transparent p-2 pl-0">
                               Descanso: {exercise.descanso || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
                               side="bottom"
-                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                              className="bg-[#272727]  text-xs text-center py-2 px-7 w-fit"
                             >
                               Tiempo de descanso
                             </PopoverContent>
@@ -310,12 +313,12 @@ const BlockDetail = ({ block, onBack }) => {
                             className={`container__details-ejercicios ${Exo2.className}`}
                           >
                             <Anchor />
-                            <PopoverTrigger className="bg-transparent text-white p-2 pl-1">
+                            <PopoverTrigger className="bg-transparent  p-2 pl-1">
                               Series: {exercise.series || "N/A"}
                             </PopoverTrigger>
                             <PopoverContent
                               side="bottom"
-                              className="bg-[#272727] text-[#f3f3f3] text-xs text-center py-2 px-7 w-fit"
+                              className="bg-[#272727]  text-xs text-center py-2 px-7 w-fit"
                             >
                               Número de series
                             </PopoverContent>
@@ -361,7 +364,7 @@ const BlockDetail = ({ block, onBack }) => {
         <p className="no-exercises">Este bloque no tiene ejercicios.</p>
       )}
     </div>
-     );
+  );
 };
 
 export default BlockDetail;

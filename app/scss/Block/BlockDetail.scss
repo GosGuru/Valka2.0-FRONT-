@@ -16,9 +16,36 @@
   font-display: swap;
 }
 
+/* Variables Específicas para BlockList */
+:root {
+  --blocklist-primary: #f7f7f7; // Naranja
+  --blocklist-secondary: #d0cccc; // Gris claro
+  --blockDetail-bg: #cacaca; // Fondo claro
+  --blocklist-card-bg: #1e1e1e; // Tarjeta clara
+  --blocklist-text: #fbfbfb; // Texto oscuro
+  --blocklist-border: #ff9a7bd5; // Bordes claros
+  --completeSeries: #1CCE5E;
+  --completeSeries-border: #073719;
+  --completeSeries-text: #000;
+  --blockDetail-border: #2c2c2cd5;
+
+}
+
+.dark {
+  --blocklist-primary: #e74a07c8;
+  --blockDetail-bg: #262626; // Fondo oscuro
+  --blocklist-card-bg: #282828; // Tarjeta oscura
+  --blocklist-text: #ffffff; // Texto claro
+  --blocklist-border: #414141; // Bordes oscuros
+  --completeSeries: #003112;
+  --completeSeries-border: #021a0b;
+  --completeSeries-text: #DCDBDB;
+  --blockDetail-border: #ff9a7bd5;
+}
+
 /* Variables globales */
 
-$primary-color: #f97316;
+$primary-color: #F5934D;
 $secondary-color: #ea7316;
 $text-color: #ffffff;
 $hover-color: #ff6f61;
@@ -48,14 +75,15 @@ body {
   background-color: #0e0e0e !important;
 }
 
+
+
 /* Estilos generales */
 .block-detail {
-  background-color: #0e0e0e !important;
-  background-color: $background-dark;
+  background-color: var(--blocklist-bg) !important;
   color: $text-color;
   min-height: 100vh;
   position: relative;
-  background-color: $card-background; // Fondo de las tarjetas
+  background-color: var(--blockDetail-bg); // Fondo de las tarjetas
   overflow: hidden;
 
   .container__tools {
@@ -88,7 +116,7 @@ body {
       position: absolute;
       left: 0;
       top: -45px;
-      color: #fff;
+      color: var(--blocklist-text);
     }
 
     .progress-container-series {
@@ -292,18 +320,19 @@ body {
 
 
     span {
-      background-color: #333333;
+      background-color: var(--blockDetail-bg);
       padding: 0.5rem;
       border-radius: 0.25rem;
       text-align: left;
       font-size: 0.875rem;
       animation: fadeIn 0.4s ease-out forwards;
-      color: #fff;
+      color: var(--blocklist-text);
+      border: 1px solid var(--blockDetail-border);
     }
   }
 
   .video_avisor {
-    color: hsl(0, 83%, 65%) !important;
+    color: hsl(0, 66%, 46%) !important;
     text-align: center !important;
     margin-top: 25% !important;
     font-size: 0.8rem;
@@ -314,9 +343,9 @@ body {
     font-weight: bold;
     transition: all .3s ease-in-out;
     border-radius: 10px !important;
-    background-color: #16a34a !important;
-    border: 2px solid #073719 !important;
-    color: #fff !important;
+    background-color: var(--completeSeries) !important;
+    border: 2px solid var(--completeSeries-border) !important;
+    color: var(--completeSeries-text) !important;
     margin: 0 auto;
 
     &:focus {
@@ -473,7 +502,7 @@ body {
 
   .exercise-item {
     padding: 0.8rem 0.3rem;
-
+    margin: 0 5px;
 
     h3.titulo__nombre {
       font-family: "Sequel Sans";
@@ -503,7 +532,7 @@ body {
       margin-top: 15px;
 
       span {
-        background: #222 !important;
+        background: var(--blockDetail-bg) !important;
         padding: 12px;
         gap: 0;
         border-radius: 10px;
@@ -514,13 +543,14 @@ body {
         transition: transform 0.2s ease-in-out;
         font-size: 16px;
         font-weight: bold;
-        color: #fff;
+        color: var(--blocklist-text);
         /* Texto en blanco */
       }
     }
 
     .timer-container {
       button {
+
         padding: 0.4rem 0.8rem;
         font-size: 0.9rem;
       }

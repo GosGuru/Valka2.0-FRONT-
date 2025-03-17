@@ -1,183 +1,107 @@
-/* Variables globales */
-$primary-color: #f8450d;
-$secondary-color: #d0cccc;
-$text-color: #000000;
-$hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+/* Variables Específicas para BlockList */
+:root {
+  --blocklist-primary: #f7f7f7; // Naranja
+  --blocklist-secondary: #d0cccc; // Gris claro
+  --blocklist-bg: #ffffff; // Fondo claro
+  --blocklist-card-bg: #1e1e1e; // Tarjeta clara
+  --blocklist-text: #fbfbfb; // Texto oscuro
+  --blocklist-border: #ff9a7bd5; // Bordes claros
+}
 
-/* Estructura de bloque principal */
+.dark {
+  --blocklist-primary: #e74a07c8;
+  --blocklist-bg: #1d1d1d; // Fondo oscuro
+  --blocklist-card-bg: #282828; // Tarjeta oscura
+  --blocklist-text: #ffffff; // Texto claro
+  --blocklist-border: #414141; // Bordes oscuros
+}
+
+/* Contenedor Principal */
+.blocklist-container {
+  background: var(--blocklist-bg);
+  color: var(--blocklist-text);
+  padding: 2rem;
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+
+  @media (min-width: 990px) {
+    padding: 3rem;
+  }
+}
+
+/* Grid de Bloques */
 .block-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  padding: 1rem 0;
-  max-width: 100%;
+  gap: 1.5rem;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-bottom: 80px !important;
-  width: 90dvw !important;
-  height: 100dvh !important ;
 
   @media (min-width: 768px) {
-    gap: 1.5rem;
-    .block-item {
-      padding: 1.5rem;
-    }
-    .block-title {
-      font-size: 1.5rem;
-    }
-  }
-
-  @media (min-width: 990px) {
-    grid-template-columns: repeat(3, 1fr);
-    position: relative;
-    top: 10px;
-    gap: 15px;
-    padding: 1.2rem;
-    max-width: 1200px;
-    margin: 55px auto;
-    background-color: #333;
-    border-radius: 40px;
-    height: 100dvh;
+    gap: 2rem;
   }
 }
 
-.container__list {
-  background-color: #0e0e0e;
-  display: flex;
-  justify-content: stretch;
-  align-items: flex-start;
-  margin: 0 auto;
-}
-
+/* Tarjetas */
 .block-item {
-  position: relative; // Necesario para posicionar elementos absolutos
-  max-width: 220px;
-  padding: 55px 26px;
-  border-top: 3.5px solid $primary-color;
-  border-left: 3.5px solid $primary-color;
-  border-block-end: 3.5px solid $secondary-color;
+  position: relative;
+  background: var(--blocklist-card-bg);
+  border: 3.5px solid var(--blocklist-border);
   border-radius: 25px;
+  padding: 2rem;
   cursor: pointer;
-  transition: border 150ms ease-in, transform 200ms ease-in-out;
-  min-height: 240px;
+  transition: transform 0.2s, box-shadow 0.2s;
   overflow: hidden;
-  background: #0c0d12;
 
   &:hover {
-    border: 3.5px solid $primary-color;
-
-    /* Solo para pantallas grandes */
-    @media (min-width: 990px) {
-      transform: scale(1.05);
-      box-shadow: $hover-shadow;
-    }
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
 
-  /* Media queries para pantallas grandes */
   @media (min-width: 990px) {
-    max-width: 250px;
-    padding: 1.75rem;
-    border-radius: 30px;
-    min-height: 300px;
-  }
-
-  /* Media queries para pantallas pequeñas */
-  @media (max-width: 768px) {
-    max-width: 100%; // Asegura que ocupe todo el ancho disponible en pantallas pequeñas
-    padding: 1rem; // Reduce el padding para evitar desbordamientos
-    min-height: 200px; // Reduce la altura mínima
+    padding: 2.5rem;
   }
 }
 
-/* Título de los bloques */
+/* Título de la Tarjeta */
 .block-title {
-  font-size: 1.5rem !important;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: $text-color;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--blocklist-primary);
   text-transform: uppercase;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5) !important;
-  color: #fff !important;
-  background: linear-gradient(188deg, #777777, #c0382b, #f39c19) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  display: inline-block; // Asegura que el degradado se aplique correctamente
+  margin-bottom: 0.5rem;
 
-  /* Media queries para pantallas grandes */
   @media (min-width: 990px) {
     font-size: 1.8rem;
-    margin-bottom: 0.8rem;
-  }
-
-  /* Media queries para pantallas pequeñas */
-  @media (max-width: 768px) {
-    font-size: 1rem; // Aumenta ligeramente el tamaño en pantallas pequeñas
   }
 }
 
-/* Notas de los bloques */
+/* Notas de la Tarjeta */
 .block-notes {
-  color: $secondary-color;
-  font-size: 18px !important;
+  color: var(--blocklist-text);
+  opacity: 0.8;
+  font-size: 1rem;
+  line-height: 1.6;
 
-  /* Media queries para pantallas grandes */
   @media (min-width: 990px) {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #b0b0b0;
-  }
-
-  /* Media queries para pantallas pequeñas */
-  @media (max-width: 768px) {
-    font-size: 12px; // Reduce el tamaño en pantallas pequeñas
-    line-height: 1.4; // Mejora la legibilidad
+    font-size: 1.1rem;
   }
 }
 
-/* Estilos para el estado vacío */
+/* Estado Vacío */
 .empty-state {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-  height: 100%;
-  color: $text-color;
-  background-color: #0c0d12;
-  padding: 2rem;
+  padding: 4rem;
+  color: var(--blocklist-text);
 
   h2 {
+    color: var(--blocklist-primary);
     font-size: 2rem;
-    font-weight: bold;
     margin-bottom: 1rem;
-    color: $primary-color;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   }
 
   p {
     font-size: 1.2rem;
-    color: $secondary-color;
-    line-height: 1.6;
-  }
-
-  /* Media queries para pantallas grandes */
-  @media (min-width: 990px) {
-    h2 {
-      font-size: 2.5rem;
-    }
-
-    p {
-      font-size: 1.5rem;
-    }
-  }
-
-  /* Media queries para pantallas pequeñas */
-  @media (max-width: 768px) {
-    h2 {
-      font-size: 1.5rem;
-    }
-
-    p {
-      font-size: 1rem;
-    }
+    opacity: 0.8;
   }
 }

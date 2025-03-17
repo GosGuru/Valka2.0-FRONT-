@@ -2,24 +2,25 @@ import React from "react";
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import "../scss/Block/blockList.scss";
-import { bebasNeue, robotoSlab, zain } from "../ui/fonts"; // Ajusta la ruta
+import { bebasNeue, robotoSlab, zain } from "../ui/fonts";
+import { useTheme } from "next-themes";
 
-// Definimos la interfaz para los bloques
 interface Block {
   id: number;
   titulo?: string;
   notes?: string;
 }
 
-// Definimos la interfaz para las props del componente
 interface BlockListProps {
   blocks: Block[];
   onSelectBlock: (id: number) => void;
 }
 
 const BlockList: React.FC<BlockListProps> = ({ blocks, onSelectBlock }) => {
+  const { theme } = useTheme();
+
   return (
-    <div className={`container__list ${zain.className}`}>
+    <div className={`blocklist-container ${zain.className} ${theme === "dark" ? "dark" : ""}`}>
       <div className="block-list">
         {blocks.map((block) => (
           <Card
@@ -40,7 +41,7 @@ const BlockList: React.FC<BlockListProps> = ({ blocks, onSelectBlock }) => {
             <div className="relative w-full h-full">
               <div className="relative z-20">
                 <CardHeader>
-                  <CardTitle className={`block-title ${bebasNeue.className}`}>
+                  <CardTitle className={`block-title ${bebasNeue.className}  ${theme === "dark" ? "dark" : ""}`}>
                     {block.titulo || "Bloque Sin Nombre"}
                   </CardTitle>
                 </CardHeader>

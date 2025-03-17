@@ -1,5 +1,7 @@
 /* global.scss */
 
+
+
 /* Importación de Tailwind */
 @tailwind base;
 @tailwind components;
@@ -18,6 +20,13 @@ html,
 
 /* Variables globales para light y dark mode */
 :root {
+  --blocklist-primary: #f7f7f7;
+  --blocklist-secondary: #d0cccc;
+  --blocklist-bg: #ffffff;
+  --blocklist-card-bg: #1e1e1e;
+  --blocklist-text: #fbfbfb;
+  --blocklist-border: #ff9a7bd5;
+
   /* Colores principales */
   --primary-color: #f97316;
   --primary-hover: #ea7316;
@@ -35,9 +44,12 @@ html,
 
   /* Tailwind-inspired variables */
   /* Colores adicionales */
-  --success-color: #28a745; /* Verde para éxito */
-  --error-color: #dc3545; /* Rojo para errores */
-  --input: #333333; /* Color de fondo para inputs en dark mode */
+  --success-color: #28a745;
+  /* Verde para éxito */
+  --error-color: #dc3545;
+  /* Rojo para errores */
+  --input: #333333;
+  /* Color de fondo para inputs en dark mode */
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;
   --card: 0 0% 100%;
@@ -67,6 +79,11 @@ html,
 
 /* Variables específicas para Dark Mode */
 .dark {
+  --blocklist-primary: #e74a07c8;
+  --blocklist-bg: #0e0e0e;
+  --blocklist-card-bg: #1a1a1a;
+  --blocklist-text: #ffffff;
+  --blocklist-border: #414141;
   --background: 0 0% 3.9%;
   --foreground: 0 0% 98%;
   --card: 0 0% 3.9%;
@@ -167,13 +184,13 @@ a:hover {
   }
 }
 
-@layer base {
-}
+@layer base {}
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
